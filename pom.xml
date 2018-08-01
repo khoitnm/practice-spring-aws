@@ -9,8 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>pro01-simple-entity</module>
-        <module>pro02-json-column</module>
+        <module>pro01-simple-s3</module>
     </modules>
 
     <parent>
