@@ -1,4 +1,7 @@
 #Prevent batch jobs from starting automatically
+cloud.aws.credentials.accessKey: ilaugsjdlkahgsdlaksdhg
+cloud.aws.credentials.secretKey: aöksjdhöadjs,höalsdhjköalsdjhasd+
+rdsPassword: someVerySecretPassword
 
 ## you can get into iam page [https://console.aws.amazon.com/iam/home]
 #cloud.aws.credentials.accessKey={accessKey}

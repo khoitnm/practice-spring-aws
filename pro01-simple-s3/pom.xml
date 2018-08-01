@@ -37,6 +37,12 @@
             <version>2.0.0.RELEASE</version>
             <type>pom</type>
         </dependency>
+        <!-- https://github.com/spring-cloud/spring-cloud-aws/blob/master/docs/src/main/asciidoc/spring-cloud-aws.adoc#simple-credentials-configuration -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-aws-autoconfigure</artifactId>
+            <!--<version>{spring-cloud-version}</version>-->
+        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
