@@ -19,6 +19,6 @@ public class SampleStory {
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadSampleFile() throws IOException {
-        awsS3Template.loadFile("s3://myBucket/rootFile.log");
+        awsS3Template.loadFile("s3://practicekevin/orbitz_property_list_100.csv");
     }
 }

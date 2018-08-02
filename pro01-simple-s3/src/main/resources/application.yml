@@ -1,14 +1,18 @@
+# This configuration for application run on an EC2 instance (an AWS-environment).
+#  example : ap-northeast-1
+cloud.aws.region: {region}
+# This configuration for application run on a non-AWS-environment.
+# https://stackoverflow.com/questions/45818092/spring-boot-startup-error-for-aws-application-there-is-not-ec2-meta-data-avail
+cloud.aws.region.static: {region}
+
 #Prevent batch jobs from starting automatically
-cloud.aws.credentials.accessKey: ilaugsjdlkahgsdlaksdhg
-cloud.aws.credentials.secretKey: aöksjdhöadjs,höalsdhjköalsdjhasd+
-rdsPassword: someVerySecretPassword
+#rdsPassword: {dbPassword}
 
 ## you can get into iam page [https://console.aws.amazon.com/iam/home]
-#cloud.aws.credentials.accessKey={accessKey}
-#cloud.aws.credentials.secretKey={secretKey}
-#
-## example : ap-northeast-1
-#cloud.aws.region={region}
-#
+cloud.aws.credentials.accessKey: {accessKey}
+cloud.aws.credentials.secretKey: {secretKey}
+
+
+
 ## example : s3-bucket-test-1
-#cloud.aws.s3.bucket={bucket}
+#cloud.aws.s3.bucket: {bucket}
