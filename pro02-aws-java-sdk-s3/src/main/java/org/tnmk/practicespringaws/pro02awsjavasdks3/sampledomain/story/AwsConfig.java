@@ -1,0 +1,24 @@
+package org.tnmk.practicespringaws.pro02awsjavasdks3.sampledomain.story;
+
+import com.amazonaws.services.s3.AmazonS3;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.tnmk.practicespringaws.pro02awsjavasdks3.common.aws.AwsProperties;
+import org.tnmk.practicespringaws.pro02awsjavasdks3.common.aws.s3.AwsS3Builder;
+
+@Configuration
+public class AwsConfig {
+
+    @Bean
+    @ConfigurationProperties("aws.s3")
+    public AwsProperties awsS3Properties() {
+        return new AwsProperties();
+    }
+
+    @Bean
+    public AmazonS3 amazonS3(){
+        return new AwsS3Builder().build(awsS3Properties());
+    }
+}

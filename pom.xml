@@ -10,6 +10,7 @@
 
     <modules>
         <module>pro01-simple-s3</module>
+        <module>pro02-aws-java-sdk-s3</module>
     </modules>
 
     <parent>
@@ -25,4 +26,5 @@
         <java.version>8</java.version>
     </properties>
 </project>
+
 
