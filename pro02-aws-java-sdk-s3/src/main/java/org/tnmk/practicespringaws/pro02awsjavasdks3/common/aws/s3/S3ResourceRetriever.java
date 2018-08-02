@@ -7,13 +7,15 @@ import com.amazonaws.services.s3.model.S3Object;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringaws.pro02awsjavasdks3.common.aws.s3.exception.ResourceReadException;
-import org.tnmk.practicespringaws.pro02awsjavasdks3.common.aws.s3.exception.ResourceRetrieverException;
+import org.tnmk.practicespringaws.pro02awsjavasdks3.common.resourceretriever.exception.ResourceReadException;
+import org.tnmk.practicespringaws.pro02awsjavasdks3.common.resourceretriever.exception.ResourceRetrieverException;
+import org.tnmk.practicespringaws.pro02awsjavasdks3.common.resourceretriever.Resource;
+import org.tnmk.practicespringaws.pro02awsjavasdks3.common.resourceretriever.ResourceRetriever;
 
 import java.io.IOException;
 
 @Service
-public class S3ResourceRetriever implements ResourceRetriever{
+public class S3ResourceRetriever implements ResourceRetriever {
     private final AmazonS3 amazonS3;
 
     @Autowired

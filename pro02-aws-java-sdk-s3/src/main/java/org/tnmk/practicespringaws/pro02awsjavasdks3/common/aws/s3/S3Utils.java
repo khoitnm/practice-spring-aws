@@ -1,7 +1,5 @@
 package org.tnmk.practicespringaws.pro02awsjavasdks3.common.aws.s3;
 
-import org.springframework.util.Assert;
-
 public class S3Utils {
     private static final String S3_SCHEME = "s3://";
     private static final String PATH_DELIMITER = "/";

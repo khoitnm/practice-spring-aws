@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro02awsjavasdks3.common.aws.s3.exception;
+package org.tnmk.practicespringaws.pro02awsjavasdks3.common.resourceretriever.exception;
 
 /**
  * The exception when retrieving file.

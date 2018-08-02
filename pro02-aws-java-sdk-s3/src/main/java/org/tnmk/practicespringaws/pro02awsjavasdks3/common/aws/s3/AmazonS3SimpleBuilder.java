@@ -6,7 +6,10 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.tnmk.practicespringaws.pro02awsjavasdks3.common.aws.AwsProperties;
 
-public class AwsS3Builder {
+/**
+ * This is just a simplified wrapper of {@link AmazonS3ClientBuilder}.
+ */
+public class AmazonS3SimpleBuilder {
 
     public AmazonS3 build(AwsProperties awsProperties) {
         return AmazonS3ClientBuilder.standard()

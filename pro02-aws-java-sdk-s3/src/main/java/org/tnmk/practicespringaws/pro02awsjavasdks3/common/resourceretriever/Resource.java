@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro02awsjavasdks3.common.aws.s3;
+package org.tnmk.practicespringaws.pro02awsjavasdks3.common.resourceretriever;
 
 import java.util.HashMap;
 import java.util.Map;
