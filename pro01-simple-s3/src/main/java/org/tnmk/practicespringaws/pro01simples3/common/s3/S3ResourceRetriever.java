@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class AwsS3Template {
+public class S3ResourceRetriever {
     @Autowired
     private ResourceLoader resourceLoader;
 
@@ -17,7 +17,7 @@ public class AwsS3Template {
      * @param filePath for example: "s3://myBucket/rootFile.log"
      * @return
      */
-    public byte[] loadFile(String filePath) throws IOException {
+    public byte[] retrieve(String filePath) throws IOException {
         Resource resource = resourceLoader.getResource(filePath);
         return IOUtils.toByteArray(resource.getInputStream());
     }

@@ -24,9 +24,10 @@ public class S3ResourceRetriever implements ResourceRetriever {
     }
 
     /**
-     * @param fileLocation "s3://myBucket/rootFile.log"
-     * @return
-     * @throws AmazonS3Exception
+     * @param fileLocation this is the S3 Protocol URL "s3://myBucket/rootFile.log"
+     * @return file content as bytes data as well as the metadata.
+     * @throws ResourceRetrieverException error when cannot download the file from S3
+     * @throws ResourceReadException error when cannot read the byte data from S3
      */
     @Override
     public Resource retrieve(String fileLocation) throws ResourceReadException, ResourceRetrieverException {

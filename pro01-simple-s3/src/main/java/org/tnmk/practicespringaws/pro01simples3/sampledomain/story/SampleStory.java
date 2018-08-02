@@ -1,24 +1,20 @@
 package org.tnmk.practicespringaws.pro01simples3.sampledomain.story;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringaws.pro01simples3.common.s3.AwsS3Template;
+import org.tnmk.practicespringaws.pro01simples3.common.s3.S3ResourceRetriever;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 @Service
 public class SampleStory {
     @Autowired
-    private AwsS3Template awsS3Template;
+    private S3ResourceRetriever s3ResourceRetriever;
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadSampleFile() throws IOException {
-        awsS3Template.loadFile("s3://practicekevin/orbitz_property_list_100.csv");
+        s3ResourceRetriever.retrieve("s3://practicekevin/orbitz_property_list_100.csv");
     }
 }
