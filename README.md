@@ -1,10 +1,10 @@
 # I. Introduction
 You can import those modules independently or you can import all of them by importing the parent project.
 
-1. `pro01-simple-entity`: Start the Application, it will generate the SQL for creating tables on the log.
-2. `pro02-json-column`: Table with JSON column. This sample shows how to write the converter for column, and how to run test with embedded DB which supports JSON column.
-3. `pro03-db-container-for-test`: When running the test, we don't use an embedded DB anymore. We may want to connect a DB with exactly version with the Prod DB. 
-So when running the test, we will automatically start a DB Docker Container in this practice.
+1. `pro01-simple-s3`: Provides a very simple way to load file from AWS S3 which uses `ResourceLoader` of Spring Framework.
+View more at `S3ResourceRetriever`.
+2. `pro02-aws-java-sdk-s3`: `pro01-simple-s3` does not provides any access to metadata of loaded file. 
+So to get both binary data and metadata in the same request, we have to write our own code by using aws-java-sdk.
  
 # II. Build projects
 Run the command line, it will compile the source code, build project, and then run tests.
