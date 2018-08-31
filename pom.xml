@@ -9,8 +9,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>pro01-simple-s3</module>
-        <module>pro02-aws-java-sdk-s3</module>
+        <module>pro01-simple-download-s3-by-resourceloader</module>
+        <module>pro02-customize-download-s3-by-aws-java-sdk</module>
     </modules>
 
     <parent>
