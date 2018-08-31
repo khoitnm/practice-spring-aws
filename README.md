@@ -25,7 +25,7 @@ mvn spring-boot:run
 ``` 
 Or you can use:
 ```
-java -jar target/pro01-simple-entity-0.0.1-SNAPSHOT.jar 
+java -jar target/pro01-simple-s3-0.0.1-SNAPSHOT.jar 
 ```
 
 To stop it, press `Ctrl-C`
