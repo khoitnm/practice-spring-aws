@@ -11,6 +11,7 @@
     <modules>
         <module>pro01-simple-download-s3-by-resourceloader</module>
         <module>pro02-customize-download-s3-by-aws-java-sdk</module>
+        <module>pro03-customize-upload-s3-by-aws-java-sdk</module>
     </modules>
 
     <parent>
