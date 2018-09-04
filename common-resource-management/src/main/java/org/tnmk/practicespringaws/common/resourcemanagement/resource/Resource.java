@@ -8,24 +8,24 @@ public class Resource {
     private static final String METADATA_CONTENT_TYPE = "Content-Type";
 
     private byte[] bytes;
-    private final Map<String, String> metadata = new HashMap<>();
+    private final Map<String, String> systemMetadata = new HashMap<>();
+    private final Map<String, String> userMetadata = new HashMap<>();
 
     public String getContentEncoding() {
-        return (String) this.metadata.get(METADATA_CONTENT_ENCODING);
+        return (String) this.systemMetadata.get(METADATA_CONTENT_ENCODING);
     }
 
     public void setContentEncoding(String encoding) {
-        this.metadata.put(METADATA_CONTENT_ENCODING, encoding);
+        this.systemMetadata.put(METADATA_CONTENT_ENCODING, encoding);
     }
 
     public String getContentType() {
-        return (String) this.metadata.get(METADATA_CONTENT_TYPE);
+        return (String) this.systemMetadata.get(METADATA_CONTENT_TYPE);
     }
 
     public void setContentType(String contentType) {
-        this.metadata.put(METADATA_CONTENT_TYPE, contentType);
+        this.systemMetadata.put(METADATA_CONTENT_TYPE, contentType);
     }
-
 
     public byte[] getBytes() {
         return bytes;
@@ -35,7 +35,11 @@ public class Resource {
         this.bytes = bytes;
     }
 
-    public Map<String, String> getMetadata() {
-        return metadata;
+    public Map<String, String> getSystemMetadata() {
+        return systemMetadata;
+    }
+
+    public Map<String, String> getUserMetadata() {
+        return userMetadata;
     }
 }

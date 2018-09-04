@@ -17,6 +17,6 @@ class S3ResourceRetrieverSpec extends BaseComponentSpecification {
         then:
         resource != null
         resource.bytes != null
-        resource.metadata != null
+        resource.systemMetadata != null
     }
 }

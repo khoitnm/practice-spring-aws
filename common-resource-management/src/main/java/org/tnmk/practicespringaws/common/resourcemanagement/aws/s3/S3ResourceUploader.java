@@ -15,15 +15,19 @@ public class S3ResourceUploader implements ResourceUploader {
         this.amazonS3 = amazonS3;
     }
 
+    /**
+     * THis method will upload file to S3. And if there's already an existing file on S3 with the same name, it will be overwritten.
+     * @param resource
+     * @param targetLocation
+     */
     @Override
     public void upload(Resource resource, String targetLocation) {
         String bucketName = S3Utils.getBucketNameFromLocation(targetLocation);
         String keyName = S3Utils.getObjectNameFromLocation(targetLocation);
 
-        InputStream myInputStream = new ByteArrayInputStream(resource.getBytes());
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setUserMetadata(resource.getMetadata());
-        amazonS3.putObject(bucketName, keyName, myInputStream, objectMetadata);
+        InputStream inputStream = new ByteArrayInputStream(resource.getBytes());
+        ObjectMetadata objectMetadata = ObjectMetadataUtils.getObjectMetadata(resource);
+        amazonS3.putObject(bucketName, keyName, inputStream, objectMetadata);
     }
 
 

@@ -27,7 +27,9 @@ public class SampleUploadStory {
         byte[] bytes = loadFileFromClasspath(SAMPLE_SOURCE_FILE_LOCATION);
         Resource resource = new Resource();
         resource.setBytes(bytes);
-        resource.setContentType("yml");
+        resource.setContentType("application/x-yaml");
+        resource.setContentEncoding("UTF-8");
+        resource.getUserMetadata().put("custom-metadata-01-key", "custom-metadata-01-value");
         s3ResourceUploader.upload(resource, SAMPLE_DESTINATION_FILE_LOCATION);
     }
 
