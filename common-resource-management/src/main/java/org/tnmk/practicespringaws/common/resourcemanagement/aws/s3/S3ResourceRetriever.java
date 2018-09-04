@@ -5,12 +5,10 @@ import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
-import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.ResourceRetriever;
+import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
+import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException;
 
 import java.io.IOException;
 

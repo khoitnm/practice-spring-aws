@@ -10,7 +10,7 @@ class S3ResourceRetrieverSpec extends BaseComponentSpecification {
     @Autowired
     private S3ResourceRetriever s3ResourceRetriever;
 
-    def 'test retrieve s3 resource'() {
+    def 'test retrieve resource from s3 successfully'() {
         when:
         Resource resource = s3ResourceRetriever.retrieve(SampleStory.SAMPLE_FILE_LOCATION)
 

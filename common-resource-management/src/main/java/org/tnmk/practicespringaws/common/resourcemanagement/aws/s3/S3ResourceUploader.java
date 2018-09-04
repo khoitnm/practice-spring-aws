@@ -2,8 +2,6 @@ package org.tnmk.practicespringaws.common.resourcemanagement.aws.s3;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.ResourceUploader;
 
