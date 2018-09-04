@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.common.resourcemanagement
+package org.tnmk.practicespringaws.common.resourcemanagement.aws.s3
 
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.S3Utils
 import spock.lang.Specification
