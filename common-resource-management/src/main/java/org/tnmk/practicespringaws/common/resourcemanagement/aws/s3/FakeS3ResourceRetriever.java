@@ -1,12 +1,10 @@
-package org.tnmk.practicespringaws.pro02awsjavasdks3.common.aws.s3;
+package org.tnmk.practicespringaws.common.resourcemanagement.aws.s3;
 
 import org.apache.commons.io.IOUtils;
-import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.S3ResourceRetriever;
-import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.S3Utils;
-import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
-import org.tnmk.practicespringaws.common.resourcemanagement.resource.ResourceRetriever;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException;
+import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
+import org.tnmk.practicespringaws.common.resourcemanagement.resource.ResourceRetriever;
 
 import java.io.IOException;
 import java.io.InputStream;

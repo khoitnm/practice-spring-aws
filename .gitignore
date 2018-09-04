@@ -31,3 +31,4 @@ nbdist/
 .nb-gradle/
 
 **/application-fullmylocal.yml
+**/application-componenttest.yml

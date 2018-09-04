@@ -4,8 +4,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.tnmk.practicespringaws.pro03awsjavasdks3.common.aws.AwsProperties;
-import org.tnmk.practicespringaws.pro03awsjavasdks3.common.aws.s3.AmazonS3SimpleBuilder;
+import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
+import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.AmazonS3SimpleBuilder;
 
 @Configuration
 public class AwsConfig {
