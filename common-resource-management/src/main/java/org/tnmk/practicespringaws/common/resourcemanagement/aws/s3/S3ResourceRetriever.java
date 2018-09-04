@@ -1,5 +1,6 @@
 package org.tnmk.practicespringaws.common.resourcemanagement.aws.s3;
 
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.GetObjectRequest;
@@ -23,7 +24,7 @@ public class S3ResourceRetriever implements ResourceRetriever {
      * @param fileLocation this is the S3 Protocol URL "s3://myBucket/rootFile.log"
      * @return file content as bytes data as well as the metadata.
      * @throws ResourceRetrieverException error when cannot download the file from S3
-     * @throws ResourceReadException error when cannot read the byte data from S3
+     * @throws ResourceReadException      error when cannot read the byte data from S3
      */
     @Override
     public Resource retrieve(String fileLocation) throws ResourceReadException, ResourceRetrieverException {
@@ -43,7 +44,9 @@ public class S3ResourceRetriever implements ResourceRetriever {
             S3Object s3Object = amazonS3.getObject(getObjectRequest);
             return s3Object;
         } catch (AmazonS3Exception e) {
-            throw new ResourceRetrieverException("Cannot download s3Object "+e.getErrorCode()+": "+e.getErrorMessage(), e, fileLocation);
+            throw new ResourceRetrieverException("Cannot download s3Object " + e.getErrorCode() + ": " + e.getErrorMessage(), e, fileLocation);
+        } catch (SdkClientException e) {
+            throw new ResourceRetrieverException("Cannot download s3Object " + e.getMessage(), e, fileLocation);
         }
     }
 

@@ -2,8 +2,6 @@ package org.tnmk.practicespringaws.common.resourcemanagement.aws.s3
 
 import com.amazonaws.services.s3.AmazonS3
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties
-import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.AmazonS3SimpleBuilder
-import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.S3ResourceRetriever
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException
 import spock.lang.Specification
 import spock.lang.Unroll
