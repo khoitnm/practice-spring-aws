@@ -18,6 +18,7 @@ mvn clean install -DskipTests
 ```
 
 # III. Start Application.
+Before running the application, you have to set the AWS connection information into `application.yml` file
 
 Start the application inside a module:
 ```
