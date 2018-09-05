@@ -1,6 +1,7 @@
 package org.tnmk.practicespringaws.common.resourcemanagement.resource;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException;
 
 import java.io.IOException;
@@ -9,6 +10,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+/**
+ * This class could work on both http and https protocols.
+ */
 public class HttpResourceRetriever implements ResourceRetriever {
     @Override
     public Resource retrieve(String fileLocation) throws ResourceRetrieverException {
@@ -25,10 +29,11 @@ public class HttpResourceRetriever implements ResourceRetriever {
             }
 
             byte[] bytes = IOUtils.toByteArray(inputStream);
-            String contentType = URLConnection.guessContentTypeFromStream(inputStream);
-
             Resource resource = new Resource();
-            resource.setContentType(contentType);
+            String contentType = URLConnection.guessContentTypeFromStream(inputStream);
+            if (StringUtils.isNotBlank(contentType)){
+                resource.setContentType(contentType);
+            }
             resource.setLocation(fileLocation);
             resource.setBytes(bytes);
             return resource;

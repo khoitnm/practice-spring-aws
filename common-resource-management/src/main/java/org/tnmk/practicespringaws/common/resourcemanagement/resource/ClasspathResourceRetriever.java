@@ -1,6 +1,7 @@
 package org.tnmk.practicespringaws.common.resourcemanagement.resource;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException;
 
@@ -17,6 +18,9 @@ public class ClasspathResourceRetriever implements ResourceRetriever {
             }
             String contentType = URLConnection.guessContentTypeFromStream(fileAsStream);
             Resource resource = new Resource();
+            if (StringUtils.isNotBlank(contentType)){
+                resource.setContentType(contentType);
+            }
             resource.setContentType(contentType);
             resource.setLocation(classpathFileLocation);
             resource.setBytes(IOUtils.toByteArray(fileAsStream));
