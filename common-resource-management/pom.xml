@@ -45,6 +45,15 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- FTP DOWNLOAD -->
+        <!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.6</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- groovy-all is usually for applications that want to support Groovy -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>

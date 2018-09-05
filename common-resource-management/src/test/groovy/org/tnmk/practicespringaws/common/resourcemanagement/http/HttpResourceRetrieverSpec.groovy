@@ -1,6 +1,7 @@
-package org.tnmk.practicespringaws.common.resourcemanagement.resource
+package org.tnmk.practicespringaws.common.resourcemanagement.http
 
 import org.tnmk.practicespringaws.common.resourcemanagement.http.HttpResourceRetriever
+import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException
 import spock.lang.Specification
 import spock.lang.Unroll
