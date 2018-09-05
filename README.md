@@ -1,3 +1,6 @@
+> If you find there are something which could be improved, please create a Merge Request. 
+> Thank you so much!
+
 # I. Introduction
 You can import those modules independently or you can import all of them by importing the parent project.
 
