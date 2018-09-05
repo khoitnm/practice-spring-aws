@@ -13,7 +13,8 @@ class SimpleFtpResourceRetrieverSpec extends Specification {
     def 'SimpleFtpResourceRetriever load a file from classpath successfully'() {
         when:
         ResourceRetriever resourceRetriever = new SimpleFtpResourceRetriever()
-        Resource resource = resourceRetriever.retrieve("ftp://ftp.funet.fi/pub/standards/RFC/rfc959.txt")
+//        Resource resource = resourceRetriever.retrieve("ftp://ftp.funet.fi/pub/standards/RFC/rfc959.txt")
+        Resource resource = resourceRetriever.retrieve("ftp://speedtest.tele2.net/1KB.zip")
 
         then:
         resource.bytes != null

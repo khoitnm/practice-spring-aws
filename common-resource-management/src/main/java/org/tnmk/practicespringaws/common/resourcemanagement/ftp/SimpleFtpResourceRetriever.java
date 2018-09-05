@@ -56,6 +56,7 @@ public class SimpleFtpResourceRetriever implements ResourceRetriever {
                 port = DEFAULT_FTP_PORT;
             }
             ftpClient.connect(url.getHost(), port);
+            ftpClient.login("anonymous","");
             //TODO security ftpClient.login()
             return ftpClient;
         } catch (IOException e) {
