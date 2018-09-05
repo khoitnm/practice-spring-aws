@@ -6,7 +6,10 @@ import java.util.Map;
 public class Resource {
     private static final String METADATA_CONTENT_ENCODING = "Content-Encoding";
     private static final String METADATA_CONTENT_TYPE = "Content-Type";
-
+    /**
+     * This is the resource location.
+     */
+    private String location;
     private byte[] bytes;
     private final Map<String, String> systemMetadata = new HashMap<>();
     private final Map<String, String> userMetadata = new HashMap<>();
@@ -41,5 +44,13 @@ public class Resource {
 
     public Map<String, String> getUserMetadata() {
         return userMetadata;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

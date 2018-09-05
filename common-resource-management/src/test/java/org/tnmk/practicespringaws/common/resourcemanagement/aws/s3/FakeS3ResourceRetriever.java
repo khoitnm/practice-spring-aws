@@ -33,6 +33,7 @@ public class FakeS3ResourceRetriever implements ResourceRetriever {
         String objectName = S3Utils.getObjectNameFromLocation(fileLocation);
         String classpathFileLocation = String.format("/%s/%s", bucketName, objectName);
         Resource resource = classpathResourceRetriever.retrieve(classpathFileLocation);
+        resource.setLocation(fileLocation);
         resource.setContentEncoding(DEFAULT_CONTENT_ENCODING);
         return resource;
     }

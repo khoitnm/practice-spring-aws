@@ -1,11 +1,16 @@
 package org.tnmk.practicespringaws.common.resourcemanagement.aws.s3;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.ResourceUploader;
+import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
+import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceUploadException;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class S3ResourceUploader implements ResourceUploader {
@@ -17,17 +22,25 @@ public class S3ResourceUploader implements ResourceUploader {
 
     /**
      * THis method will upload file to S3. And if there's already an existing file on S3 with the same name, it will be overwritten.
+     *
      * @param resource
      * @param targetLocation
      */
     @Override
-    public void upload(Resource resource, String targetLocation) {
+    public void upload(Resource resource, String targetLocation) throws ResourceReadException, ResourceUploadException {
         String bucketName = S3Utils.getBucketNameFromLocation(targetLocation);
         String keyName = S3Utils.getObjectNameFromLocation(targetLocation);
 
-        InputStream inputStream = new ByteArrayInputStream(resource.getBytes());
-        ObjectMetadata objectMetadata = ObjectMetadataUtils.getObjectMetadata(resource);
-        amazonS3.putObject(bucketName, keyName, inputStream, objectMetadata);
+        try (InputStream inputStream = new ByteArrayInputStream(resource.getBytes())) {
+            ObjectMetadata objectMetadata = ObjectMetadataUtils.getObjectMetadata(resource);
+            amazonS3.putObject(bucketName, keyName, inputStream, objectMetadata);
+        } catch (AmazonServiceException ex) {
+            throw new ResourceUploadException("Cannot upload resource. Error at the server side.", ex, resource.getLocation(), targetLocation);
+        } catch (SdkClientException ex) {
+            throw new ResourceUploadException("Cannot upload resource. Error at the client side.", ex, resource.getLocation(), targetLocation);
+        } catch (IOException e) {
+            throw new ResourceReadException("Cannot read the source data ", e, resource.getLocation());
+        }
     }
 
 

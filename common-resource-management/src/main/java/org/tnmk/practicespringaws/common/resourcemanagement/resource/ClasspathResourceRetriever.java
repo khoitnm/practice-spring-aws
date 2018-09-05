@@ -14,9 +14,10 @@ public class ClasspathResourceRetriever implements ResourceRetriever {
             if (fileAsStream == null) {
                 throw new ResourceRetrieverException("File not found", classpathFileLocation);
             }
-            Resource retrievedFile = new Resource();
-            retrievedFile.setBytes(IOUtils.toByteArray(fileAsStream));
-            return retrievedFile;
+            Resource resource = new Resource();
+            resource.setLocation(classpathFileLocation);
+            resource.setBytes(IOUtils.toByteArray(fileAsStream));
+            return resource;
         } catch (IOException e) {
             throw new ResourceReadException("Read file error", e, classpathFileLocation);
         }

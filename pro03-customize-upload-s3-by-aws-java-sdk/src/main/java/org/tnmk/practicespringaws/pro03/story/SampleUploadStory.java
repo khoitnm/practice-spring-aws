@@ -9,6 +9,7 @@ import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.S3ResourceUpl
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException;
+import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceUploadException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +24,7 @@ public class SampleUploadStory {
     private S3ResourceUploader s3ResourceUploader;
 
     @EventListener(ApplicationReadyEvent.class)
-    public void uploadSampleFile() throws ResourceRetrieverException, ResourceReadException {
+    public void uploadSampleFile() throws ResourceReadException, ResourceUploadException {
         byte[] bytes = loadFileFromClasspath(SAMPLE_SOURCE_FILE_LOCATION);
         Resource resource = new Resource();
         resource.setBytes(bytes);
