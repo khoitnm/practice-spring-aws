@@ -25,13 +25,4 @@ class FtpResourceRetrieverSpec extends Specification {
         resource.bytes != null
     }
 
-    @Unroll
-    def 'SimpleFtpResourceRetriever show throw exception when cannot read the file'() {
-        when:
-        HttpResourceRetriever resourceRetriever = new HttpResourceRetriever();
-        resourceRetriever.retrieve("/no-exist-file-"+System.nanoTime())
-
-        then:
-        thrown(ResourceRetrieverException.class)
-    }
 }
