@@ -6,16 +6,13 @@ import java.util.Map;
 public class Resource {
     private static final String METADATA_CONTENT_ENCODING = "Content-Encoding";
     private static final String METADATA_CONTENT_TYPE = "Content-Type";
-    /**
-     * This is the resource location.
-     */
-    private String location;
+    private static final String METADATA_SOURCE_LOCATION = "Source-Location";
     private byte[] bytes;
     private final Map<String, String> systemMetadata = new HashMap<>();
     private final Map<String, String> userMetadata = new HashMap<>();
 
     public String getContentEncoding() {
-        return (String) this.systemMetadata.get(METADATA_CONTENT_ENCODING);
+        return this.systemMetadata.get(METADATA_CONTENT_ENCODING);
     }
 
     public void setContentEncoding(String encoding) {
@@ -23,11 +20,19 @@ public class Resource {
     }
 
     public String getContentType() {
-        return (String) this.systemMetadata.get(METADATA_CONTENT_TYPE);
+        return this.systemMetadata.get(METADATA_CONTENT_TYPE);
     }
 
     public void setContentType(String contentType) {
         this.systemMetadata.put(METADATA_CONTENT_TYPE, contentType);
+    }
+
+    public String getSourceLocation() {
+        return this.userMetadata.get(METADATA_SOURCE_LOCATION);
+    }
+
+    public void setSourceLocation(String sourceLocation) {
+        this.userMetadata.put(METADATA_SOURCE_LOCATION, sourceLocation);
     }
 
     public byte[] getBytes() {
@@ -46,11 +51,5 @@ public class Resource {
         return userMetadata;
     }
 
-    public String getLocation() {
-        return location;
-    }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

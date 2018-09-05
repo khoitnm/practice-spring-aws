@@ -7,8 +7,6 @@ import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import java.util.Map;
 
 public class ObjectMetadataUtils {
-    private static final String META_KEY_SOURCE_LOCATION = "sourceLocation";
-
 
     public static ObjectMetadata getObjectMetadata(Resource resource) {
         ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -21,9 +19,6 @@ public class ObjectMetadataUtils {
         }
 
         Map<String, String> customUserMetadata = resource.getUserMetadata();
-        if (StringUtils.isNotBlank(resource.getLocation())) {
-            customUserMetadata.put(META_KEY_SOURCE_LOCATION, resource.getLocation());
-        }
         objectMetadata.setUserMetadata(customUserMetadata);
         return objectMetadata;
     }

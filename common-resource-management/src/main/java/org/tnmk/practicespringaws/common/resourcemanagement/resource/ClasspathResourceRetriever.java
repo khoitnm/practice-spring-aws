@@ -1,11 +1,13 @@
 package org.tnmk.practicespringaws.common.resourcemanagement.resource;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLConnection;
 
 public class ClasspathResourceRetriever implements ResourceRetriever {
     @Override
@@ -14,8 +16,13 @@ public class ClasspathResourceRetriever implements ResourceRetriever {
             if (fileAsStream == null) {
                 throw new ResourceRetrieverException("File not found", classpathFileLocation);
             }
+            String contentType = URLConnection.guessContentTypeFromStream(fileAsStream);
             Resource resource = new Resource();
-            resource.setLocation(classpathFileLocation);
+            if (StringUtils.isNotBlank(contentType)){
+                resource.setContentType(contentType);
+            }
+            resource.setContentType(contentType);
+            resource.setSourceLocation(classpathFileLocation);
             resource.setBytes(IOUtils.toByteArray(fileAsStream));
             return resource;
         } catch (IOException e) {
