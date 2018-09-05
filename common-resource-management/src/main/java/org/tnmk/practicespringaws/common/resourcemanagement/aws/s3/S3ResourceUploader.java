@@ -4,6 +4,8 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.util.ObjectMetadataUtils;
+import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.util.S3Utils;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.ResourceUploader;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;

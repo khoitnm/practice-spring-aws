@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import org.apache.commons.io.IOUtils;
+import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.util.S3Utils;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.ResourceRetriever;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;

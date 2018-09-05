@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.common.resourcemanagement.aws.s3;
+package org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.util;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.apache.commons.lang3.StringUtils;

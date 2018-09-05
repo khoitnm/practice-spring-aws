@@ -1,5 +1,6 @@
 package org.tnmk.practicespringaws.common.resourcemanagement.aws.s3;
 
+import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.util.S3Utils;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.ClasspathResourceRetriever;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.ResourceRetriever;
