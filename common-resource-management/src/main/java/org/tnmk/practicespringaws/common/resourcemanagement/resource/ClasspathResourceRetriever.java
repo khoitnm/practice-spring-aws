@@ -22,7 +22,7 @@ public class ClasspathResourceRetriever implements ResourceRetriever {
                 resource.setContentType(contentType);
             }
             resource.setContentType(contentType);
-            resource.setLocation(classpathFileLocation);
+            resource.setSourceLocation(classpathFileLocation);
             resource.setBytes(IOUtils.toByteArray(fileAsStream));
             return resource;
         } catch (IOException e) {

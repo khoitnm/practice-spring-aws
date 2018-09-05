@@ -37,11 +37,11 @@ public class S3ResourceUploader implements ResourceUploader {
             ObjectMetadata objectMetadata = ObjectMetadataUtils.getObjectMetadata(resource);
             amazonS3.putObject(bucketName, keyName, inputStream, objectMetadata);
         } catch (AmazonServiceException ex) {
-            throw new ResourceUploadException("Cannot upload resource. Error at the server side.", ex, resource.getLocation(), targetLocation);
+            throw new ResourceUploadException("Cannot upload resource. Error at the server side.", ex, resource.getSourceLocation(), targetLocation);
         } catch (SdkClientException ex) {
-            throw new ResourceUploadException("Cannot upload resource. Error at the client side.", ex, resource.getLocation(), targetLocation);
+            throw new ResourceUploadException("Cannot upload resource. Error at the client side.", ex, resource.getSourceLocation(), targetLocation);
         } catch (IOException e) {
-            throw new ResourceReadException("Cannot read the source data ", e, resource.getLocation());
+            throw new ResourceReadException("Cannot read the source data ", e, resource.getSourceLocation());
         }
     }
 

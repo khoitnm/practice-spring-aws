@@ -34,7 +34,7 @@ public class HttpResourceRetriever implements ResourceRetriever {
             if (StringUtils.isNotBlank(contentType)){
                 resource.setContentType(contentType);
             }
-            resource.setLocation(fileLocation);
+            resource.setSourceLocation(fileLocation);
             resource.setBytes(bytes);
             return resource;
         } catch (IOException e) {

@@ -31,7 +31,7 @@ public class S3ResourceRetriever implements ResourceRetriever {
     public Resource retrieve(String fileLocation) throws ResourceReadException, ResourceRetrieverException {
         S3Object s3Object = retrieveS3Object(fileLocation);
         Resource resource = new Resource();
-        resource.setLocation(fileLocation);
+        resource.setSourceLocation(fileLocation);
         resource.setContentEncoding(s3Object.getObjectMetadata().getContentEncoding());
         resource.setContentType(s3Object.getObjectMetadata().getContentType());
         resource.setBytes(getBytesContent(s3Object));
