@@ -6,6 +6,7 @@ import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.R
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLConnection;
 
 public class ClasspathResourceRetriever implements ResourceRetriever {
     @Override
@@ -14,7 +15,9 @@ public class ClasspathResourceRetriever implements ResourceRetriever {
             if (fileAsStream == null) {
                 throw new ResourceRetrieverException("File not found", classpathFileLocation);
             }
+            String contentType = URLConnection.guessContentTypeFromStream(fileAsStream);
             Resource resource = new Resource();
+            resource.setContentType(contentType);
             resource.setLocation(classpathFileLocation);
             resource.setBytes(IOUtils.toByteArray(fileAsStream));
             return resource;
