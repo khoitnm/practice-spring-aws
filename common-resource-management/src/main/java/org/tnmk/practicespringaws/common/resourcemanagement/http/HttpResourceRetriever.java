@@ -1,7 +1,9 @@
-package org.tnmk.practicespringaws.common.resourcemanagement.resource;
+package org.tnmk.practicespringaws.common.resourcemanagement.http;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
+import org.tnmk.practicespringaws.common.resourcemanagement.resource.ResourceRetriever;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException;
 
 import java.io.IOException;
