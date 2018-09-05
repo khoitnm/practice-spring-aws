@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro02awsjavasdks3.sampledomain.story;
+package org.tnmk.practicespringaws.pro03.story;
 
 import com.amazonaws.services.s3.AmazonS3;
 import org.springframework.boot.context.properties.ConfigurationProperties;
