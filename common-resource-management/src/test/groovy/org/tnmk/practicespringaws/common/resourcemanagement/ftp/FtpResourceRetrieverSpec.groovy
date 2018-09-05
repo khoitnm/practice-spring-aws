@@ -7,14 +7,19 @@ import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.R
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class SimpleFtpResourceRetrieverSpec extends Specification {
+class FtpResourceRetrieverSpec extends Specification {
 
     @Unroll
     def 'SimpleFtpResourceRetriever load a file from classpath successfully'() {
         when:
-        ResourceRetriever resourceRetriever = new SimpleFtpResourceRetriever()
-//        Resource resource = resourceRetriever.retrieve("ftp://ftp.funet.fi/pub/standards/RFC/rfc959.txt")
-        Resource resource = resourceRetriever.retrieve("ftp://speedtest.tele2.net/1KB.zip")
+        FtpServerProperties ftpServerProperties = new FtpServerProperties(
+                host: "speedtest.tele2.net"
+                ,port: 21
+                ,username: "anonymous"
+                ,password: " "
+        )
+        ResourceRetriever resourceRetriever = new FtpResourceRetriever(ftpServerProperties)
+        Resource resource = resourceRetriever.retrieve("1KB.zip")
 
         then:
         resource.bytes != null

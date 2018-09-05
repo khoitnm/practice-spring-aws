@@ -17,14 +17,19 @@ import java.net.URLConnection;
 /**
  * This class helps you to download file from a FTP URL which doesn't require any login information.
  */
-public class SimpleFtpResourceRetriever implements ResourceRetriever {
+public class FtpResourceRetriever implements ResourceRetriever {
     private static final int DEFAULT_FTP_PORT = 21;
 
+    private final FtpServerProperties ftpServerProperties;
+
+    public FtpResourceRetriever(FtpServerProperties ftpServerProperties) {
+        this.ftpServerProperties = ftpServerProperties;
+    }
+
     /**
-     * @param fileLocation a FTP link. <br/>
-     *                     For example: ftp://ftp.funet.fi/pub/standards/RFC/rfc959.txt where:
-     *                     <li>host: "ftp.funet.fi"</li>
-     *                     <li>port: default 21</li>
+     * @param fileLocation The file path inside the FTP server, this is not the full FTP URL.
+     *                     For example:<br/>
+     *                     If you want to download the file "ftp://speedtest.tele2.net/1KB.zip", the fileLocation is "1KB.zip"
      * @return
      * @throws ResourceReadException
      * @throws ResourceRetrieverException
@@ -33,39 +38,29 @@ public class SimpleFtpResourceRetriever implements ResourceRetriever {
     public Resource retrieve(String fileLocation) throws ResourceReadException, ResourceRetrieverException {
         FTPClient ftpClient = new FTPClient();
         try {
-            URL url = validateURL(fileLocation);
-            connectFTPServer(ftpClient, url);
-            return retrieveResource(ftpClient, url, fileLocation);
+            connectFTPServer(ftpClient, ftpServerProperties);
+            return retrieveResource(ftpClient, fileLocation);
         } finally {
             closeFTPClient(ftpClient, fileLocation);
         }
     }
 
-    private URL validateURL(String fileLocation) throws ResourceRetrieverException {
+    private FTPClient connectFTPServer(FTPClient ftpClient, FtpServerProperties ftpServerProperties) throws ResourceRetrieverException {
         try {
-            return new URL(fileLocation);
-        } catch (MalformedURLException e) {
-            throw new ResourceRetrieverException("Malformed URL: " + e.getMessage(), e, fileLocation);
-        }
-    }
-
-    private FTPClient connectFTPServer(FTPClient ftpClient, URL url) throws ResourceRetrieverException {
-        try {
-            int port = url.getPort();
-            if (port < 0) {
+            Integer port = ftpServerProperties.getPort();
+            if (port == null) {
                 port = DEFAULT_FTP_PORT;
             }
-            ftpClient.connect(url.getHost(), port);
-            ftpClient.login("anonymous","");
-            //TODO security ftpClient.login()
+            ftpClient.connect(ftpServerProperties.getHost(), port);
+            ftpClient.login(ftpServerProperties.getUsername(), ftpServerProperties.getPassword());
             return ftpClient;
         } catch (IOException e) {
-            throw new ResourceRetrieverException("Cannot connect FTP server: " + e.getMessage(), e, url.toString());
+            throw new ResourceRetrieverException("Cannot connect FTP server: " + e.getMessage(), e, ftpServerProperties.getHost() + ":" + ftpServerProperties.getPort());
         }
     }
 
-    private Resource retrieveResource(FTPClient ftpClient, URL url, String fileLocation) throws ResourceRetrieverException, ResourceReadException {
-        InputStream inputStream = retrieveFileStream(ftpClient, url);
+    private Resource retrieveResource(FTPClient ftpClient, String fileLocation) throws ResourceRetrieverException, ResourceReadException {
+        InputStream inputStream = retrieveFileStream(ftpClient, fileLocation);
         try {
             byte[] bytes = IOUtils.toByteArray(inputStream);
             Resource resource = new Resource();
@@ -81,16 +76,16 @@ public class SimpleFtpResourceRetriever implements ResourceRetriever {
         }
     }
 
-    private InputStream retrieveFileStream(FTPClient ftpClient, URL url) throws ResourceRetrieverException {
+    private InputStream retrieveFileStream(FTPClient ftpClient, String fileLocation) throws ResourceRetrieverException {
         InputStream inputStream;
         try {
-            inputStream = ftpClient.retrieveFileStream(url.getPath());
+            inputStream = ftpClient.retrieveFileStream(fileLocation);
             if (inputStream == null) {
-                throw new ResourceRetrieverException("File not found", url.toString());
+                throw new ResourceRetrieverException("File not found", fileLocation);
             }
             return inputStream;
         } catch (IOException e) {
-            throw new ResourceRetrieverException("Cannot download FTP file: " + e.getMessage(), e, url.toString());
+            throw new ResourceRetrieverException("Cannot download FTP file: " + e.getMessage(), e, fileLocation);
         }
     }
 
