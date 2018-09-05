@@ -4,17 +4,15 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Service;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.S3ResourceUploader;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
-import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceRetrieverException;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceUploadException;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-@Service
+//@Service
 public class SampleUploadStory {
     private static final String SAMPLE_SOURCE_FILE_LOCATION = "/application-fullmylocal.yml";
     private static final String SAMPLE_DESTINATION_FILE_LOCATION = "s3://practicekevin/application-fullmylocal.yml";

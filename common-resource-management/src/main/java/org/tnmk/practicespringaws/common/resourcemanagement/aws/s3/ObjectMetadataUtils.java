@@ -12,8 +12,13 @@ public class ObjectMetadataUtils {
 
     public static ObjectMetadata getObjectMetadata(Resource resource) {
         ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentType(resource.getContentType());
-        objectMetadata.setContentEncoding(resource.getContentEncoding());
+        if (StringUtils.isNotBlank(resource.getContentType())) {
+            objectMetadata.setContentType(resource.getContentType());
+        }
+
+        if (StringUtils.isNotBlank(resource.getContentEncoding())) {
+            objectMetadata.setContentEncoding(resource.getContentEncoding());
+        }
 
         Map<String, String> customUserMetadata = resource.getUserMetadata();
         if (StringUtils.isNotBlank(resource.getLocation())) {
