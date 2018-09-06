@@ -14,9 +14,9 @@ class FtpResourceRetrieverSpec extends Specification {
         when:
         FtpServerProperties ftpServerProperties = new FtpServerProperties(
                 host: "speedtest.tele2.net"
-                ,port: 21
-                ,username: "anonymous"
-                ,password: " "
+                , port: 21
+                , username: "anonymous"
+                , password: " "
         )
         ResourceRetriever resourceRetriever = new FtpResourceRetriever(ftpServerProperties)
         Resource resource = resourceRetriever.retrieve("1KB.zip")
@@ -25,4 +25,19 @@ class FtpResourceRetrieverSpec extends Specification {
         resource.bytes != null
     }
 
+    @Unroll
+    def 'SimpleFtpResourceRetriever throws exception when cannot connect FTP Server'() {
+        when:
+        FtpServerProperties ftpServerProperties = new FtpServerProperties(
+                host: "not.exist.host." + System.nanoTime()
+                , port: 21
+                , username: "not.exist.user." + System.nanoTime()
+                , password: "not.exist.password." + System.nanoTime()
+        )
+        ResourceRetriever resourceRetriever = new FtpResourceRetriever(ftpServerProperties)
+        resourceRetriever.retrieve("not-exist-file-" + System.nanoTime() + ".csv")
+
+        then:
+        thrown(ResourceRetrieverException)
+    }
 }
