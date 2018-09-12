@@ -8,6 +8,7 @@ You can import those modules independently or you can import all of them by impo
 View more at `S3ResourceRetriever`.
 2. `pro02-customize-download-s3-by-aws-java-sdk`: `pro01-simple-download-s3-by-resourceloader` does not provides any access to metadata of loaded file. 
 So to get both binary data and metadata in the same request, we have to write our own code by using aws-java-sdk.
+3. `pro03-customize-upload-s3-by-aws-java-sdk` : Upload S3 and related metadata in one request by using aws-java-sdk.
  
 # II. Build projects
 Run the command line, it will compile the source code, build project, and then run tests.
