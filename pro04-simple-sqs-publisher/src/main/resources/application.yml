@@ -1,3 +1,3 @@
-aws.s3.region: {region}
-aws.s3.accessKey: {accessKey}
-aws.s3.secretKey: {secretKey}
+aws.region: {region}
+aws.accessKey: {accessKey}
+aws.secretKey: {secretKey}

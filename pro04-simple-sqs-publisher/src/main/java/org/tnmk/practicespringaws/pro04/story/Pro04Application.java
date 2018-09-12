@@ -1,13 +1,13 @@
-package org.tnmk.practicespringaws.pro03;
+package org.tnmk.practicespringaws.pro04.story;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class Pro03Application {
+public class Pro04Application {
 
   public static void main(String[] args) {
-    SpringApplication.run(Pro03Application.class, args);
+    SpringApplication.run(Pro04Application.class, args);
   }
 }
