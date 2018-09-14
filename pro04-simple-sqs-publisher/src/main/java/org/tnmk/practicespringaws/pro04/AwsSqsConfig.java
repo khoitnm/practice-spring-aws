@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.destination.DynamicDestinationResolver;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.PayloadArgumentResolver;
+import org.springframework.messaging.handler.invocation.HandlerMethodArgumentResolver;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
 
 import javax.jms.Session;
@@ -53,15 +55,15 @@ public class AwsSqsConfig {
         return new JmsTemplate(sqsConnectionFactory);
     }
 
-
-    @Bean
-    public QueueMessageHandlerFactory queueMessageHandlerFactory() {
-        QueueMessageHandlerFactory factory = new QueueMessageHandlerFactory();
-        MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
-
-        //set strict content type match to false
-        messageConverter.setStrictContentTypeMatch(false);
-        factory.setArgumentResolvers(Collections.<HandlerMethodArgumentResolver>singletonList(new PayloadArgumentResolver(messageConverter)));
-        return factory;
-    }
+//
+//    @Bean
+//    public QueueMessageHandlerFactory queueMessageHandlerFactory() {
+//        QueueMessageHandlerFactory factory = new QueueMessageHandlerFactory();
+//        MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
+//
+//        //set strict content type match to false
+//        messageConverter.setStrictContentTypeMatch(false);
+//        factory.setArgumentResolvers(Collections.<HandlerMethodArgumentResolver>singletonList(new PayloadArgumentResolver(messageConverter)));
+//        return factory;
+//    }
 }
