@@ -1,14 +1,17 @@
 package org.tnmk.practicespringaws.pro04.aws.sqs.common;
 
+import com.amazon.sqs.javamessaging.ProviderConfiguration;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.internal.StaticCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -32,12 +35,13 @@ public class AwsSqsCommonConfig {
 
     @Bean
     public SQSConnectionFactory sqsConnectionFactory(AwsProperties awsProperties) {
-        SQSConnectionFactory connectionFactory = SQSConnectionFactory.builder()
-            .withRegion(Region.getRegion(Regions.fromName(awsProperties.getRegion())))
-            .withAWSCredentialsProvider(new AWSStaticCredentialsProvider(
+        AmazonSQSClientBuilder amazonSQSClientBuilder = AmazonSQSClientBuilder.standard()
+            .withRegion(awsProperties.getRegion())
+            .withCredentials(new AWSStaticCredentialsProvider(
                 new BasicAWSCredentials(awsProperties.getAccessKey(), awsProperties.getSecretKey())
-            ))
-            .build();
+            ));
+
+        SQSConnectionFactory connectionFactory = new SQSConnectionFactory(new ProviderConfiguration(), amazonSQSClientBuilder);
         return connectionFactory;
     }
 
@@ -50,7 +54,7 @@ public class AwsSqsCommonConfig {
     public MessageConverter messageConverter() {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder.serializationInclusion(JsonInclude.Include.NON_EMPTY);
-        builder.dateFormat(new ISO8601DateFormat());
+        builder.dateFormat(new StdDateFormat());
         ObjectMapper objectMapper = builder.build();
 
 
