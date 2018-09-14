@@ -22,14 +22,11 @@ import javax.jms.Session;
  */
 public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements MessageConverter {
 
-    private final static String MESSAGE_TYPE_NAME = "_msg_type_name_";
-    private final static String CONTENT_TYPE_PROTOBUF = "application/x-backend-command";
+    private final static String CONTENT_TYPE_PROTOBUF = "application/protobuf";
 
-//    private final Descriptors.FileDescriptor fileDescriptor;
     private final ProtobufDeserializer<T> protobufDeserializer;
 
     public ProtobufMessageConverter(Class<T> messageType) {
-//        this.fileDescriptor = messageType.getDes;
         this.protobufDeserializer = new ProtobufDeserializer<T>(messageType);
     }
 
@@ -43,7 +40,6 @@ public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements M
             byte[] byteArray = protobuf.toByteArray();
             SQSBytesMessage sqsBytesMessage = new SQSBytesMessage();
             sqsBytesMessage.setStringProperty(MessageHeaders.CONTENT_TYPE, ProtobufMessageConverter.CONTENT_TYPE_PROTOBUF);
-            sqsBytesMessage.setStringProperty(ProtobufMessageConverter.MESSAGE_TYPE_NAME, protobuf.getDescriptorForType().getName());
             sqsBytesMessage.writeBytes(byteArray);
             return sqsBytesMessage;
         }
