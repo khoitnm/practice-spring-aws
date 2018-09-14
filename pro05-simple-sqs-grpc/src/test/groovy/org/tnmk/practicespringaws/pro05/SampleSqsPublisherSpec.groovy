@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
 import org.springframework.test.annotation.DirtiesContext
 import org.tnmk.practicespringaws.pro05.aws.sqs.listener.story.SampleDataAwareness
-import org.tnmk.practicespringaws.pro05.aws.sqs.model.SampleData
 import org.tnmk.practicespringaws.pro05.aws.sqs.publisher.story.SampleSqsPublisher
 import spock.lang.Shared
 import spock.util.concurrent.PollingConditions
@@ -52,7 +51,7 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
 
         then:
         pollingConditions.eventually {
-            Mockito.verify(mockSampleDataAwareness, Mockito.times(1))
+            Mockito.verify(mockSampleDataAwareness, Mockito.atLeast(1))
                     .aware(Mockito.any())
         }
     }
