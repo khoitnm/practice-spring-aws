@@ -50,7 +50,7 @@ public class AwsSqsCommonConfig {
      */
     @Bean
     public MessageConverter messageConverter() {
-        return new ProtobufMessageConverter(SampleMessageProto.getDescriptor().getFile());
+        return new ProtobufMessageConverter();
 //
 //        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
 //        builder.serializationInclusion(JsonInclude.Include.NON_EMPTY);
