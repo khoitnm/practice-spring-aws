@@ -25,6 +25,7 @@ public class ProtobufMessageConverter implements MessageConverter {
     private final static String MESSAGE_TYPE_NAME = "_msg_type_name_";
     private final static String CONTENT_TYPE_PROTOBUF = "application/x-backend-command";
 
+    private Descriptors.Descriptor descriptor;
 //    private final Descriptors.FileDescriptor fileDescriptor;
 
     public ProtobufMessageConverter() {
@@ -42,17 +43,19 @@ public class ProtobufMessageConverter implements MessageConverter {
             throw new MessageConversionException("Message wasn't a protobuf");
         } else {
             com.google.protobuf.Message protobuf = (com.google.protobuf.Message) object;
-            Descriptors.Descriptor descriptor = protobuf.getDescriptorForType();
+            descriptor = protobuf.getDescriptorForType();
 //            Descriptors.FileDescriptor fileDescriptor = protobuf.getDescriptorForType().getFile();
             byte[] byteArray = protobuf.toByteArray();
             SQSBytesMessage sqsBytesMessage = new SQSBytesMessage();
             sqsBytesMessage.setStringProperty(MessageHeaders.CONTENT_TYPE, ProtobufMessageConverter.CONTENT_TYPE_PROTOBUF);
-//            sqsBytesMessage.setStringProperty(ProtobufMessageConverter.MESSAGE_TYPE_NAME, protobuf.getDescriptorForType().getName());
-            sqsBytesMessage.setObjectProperty("descriptor", descriptor);
+            sqsBytesMessage.setStringProperty(ProtobufMessageConverter.MESSAGE_TYPE_NAME, descriptor.getName());
+//            sqsBytesMessage.setObjectProperty("descriptor", descriptor); //Error
             sqsBytesMessage.writeBytes(byteArray);
             return sqsBytesMessage;
         }
     }
+
+
 
     @Override
     public Object fromMessage(Message message) throws MessageConversionException {
@@ -62,8 +65,10 @@ public class ProtobufMessageConverter implements MessageConverter {
             try {
                 String contentType = message.getStringProperty(MessageHeaders.CONTENT_TYPE);
                 if (ProtobufMessageConverter.CONTENT_TYPE_PROTOBUF.equals(contentType)) {
+                    String descriptorName = message.getStringProperty(ProtobufMessageConverter.MESSAGE_TYPE_NAME);
+//                    Descriptors.Descriptor descriptor = Descriptors.FileDescriptor.
 //                    String typeName = getMessageTypeName(message);
-                    Descriptors.Descriptor descriptor = (Descriptors.Descriptor) message.getObjectProperty("descriptor");
+//                    Descriptors.Descriptor descriptor = (Descriptors.Descriptor) message.getObjectProperty("descriptor");
 //                    Descriptors.Descriptor descriptor = fileDescriptor.findMessageTypeByName(typeName);
                     byte[] payLoadBytes = sqsBytesMessage.getBodyAsBytes();
                     com.google.protobuf.Message parsedProtobufMessage = DynamicMessage.parseFrom(descriptor, payLoadBytes);
