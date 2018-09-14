@@ -6,7 +6,7 @@ import com.amazon.sqs.javamessaging.message.SQSBytesMessage;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.DynamicMessage;
 import org.springframework.jms.support.converter.MessageConversionException;
-import org.springframework.jms.support.converter.SmartMessageConverter;
+import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.messaging.MessageHeaders;
 
 import javax.jms.JMSException;
@@ -19,7 +19,7 @@ import javax.jms.Session;
  * @author Thibault NORMAND
  * @date 21/03/13
  */
-public class ProtobufMessageConverter implements SmartMessageConverter {
+public class ProtobufMessageConverter implements MessageConverter {
 
     private final static String MESSAGE_TYPE_NAME = "_msg_type_name_";
     private final static String CONTENT_TYPE_PROTOBUF = "application/x-backend-command";
@@ -36,32 +36,24 @@ public class ProtobufMessageConverter implements SmartMessageConverter {
     }
 
     @Override
-    public javax.jms.Message toMessage(Object object, Session session, Object conversionHint) throws JMSException, MessageConversionException {
-
-
+    public javax.jms.Message toMessage(Object object, Session session) throws JMSException, MessageConversionException {
         if (!com.google.protobuf.Message.class.isAssignableFrom(object.getClass())) {
             throw new MessageConversionException("Message wasn't a protobuf");
         } else {
             com.google.protobuf.Message protobuf = (com.google.protobuf.Message) object;
             byte[] byteArray = protobuf.toByteArray();
             SQSBytesMessage sqsBytesMessage = new SQSBytesMessage();
-            sqsBytesMessage.writeBytes(byteArray);
             sqsBytesMessage.setStringProperty(MessageHeaders.CONTENT_TYPE, ProtobufMessageConverter.CONTENT_TYPE_PROTOBUF);
             sqsBytesMessage.setStringProperty(ProtobufMessageConverter.MESSAGE_TYPE_NAME, protobuf.getDescriptorForType().getName());
-            return new SQSBytesMessage();
+            sqsBytesMessage.writeBytes(byteArray);
+            return sqsBytesMessage;
         }
     }
 
     @Override
-    public javax.jms.Message toMessage(Object object, Session session) throws JMSException, MessageConversionException {
-        return null;
-    }
-
-    @Override
-    public Object fromMessage(Message message) throws JMSException, MessageConversionException {
+    public Object fromMessage(Message message) throws MessageConversionException {
         if (message instanceof SQSBytesMessage) {
             SQSBytesMessage sqsBytesMessage = (SQSBytesMessage) message;
-
 
             try {
                 String contentType = message.getStringProperty(MessageHeaders.CONTENT_TYPE);
@@ -75,10 +67,10 @@ public class ProtobufMessageConverter implements SmartMessageConverter {
                     throw new MessageConversionException("Cannot convert, unknown message type %s".format(getMessageTypeName(message)));
                 }
             } catch (Exception e) {
-                throw new MessageConversionException("Cannot convert, unknown message type %s".format(getMessageTypeName(message)));
+                throw new MessageConversionException("Cannot convert " + e.getMessage());
             }
         } else {
-            throw new MessageConversionException("Cannot convert message " + message);
+            throw new MessageConversionException("Message must be SQSBytesMessage: " + message);
         }
     }
 }

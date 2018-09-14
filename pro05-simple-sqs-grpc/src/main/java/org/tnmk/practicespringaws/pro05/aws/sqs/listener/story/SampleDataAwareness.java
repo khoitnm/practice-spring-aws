@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.tnmk.practicespringaws.pro05.SampleMessageProto;
-import org.tnmk.practicespringaws.pro05.aws.sqs.model.SampleData;
 
 import java.lang.invoke.MethodHandles;
 

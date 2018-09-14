@@ -5,7 +5,6 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import org.tnmk.practicespringaws.pro05.SampleMessageProto;
-import org.tnmk.practicespringaws.pro05.aws.sqs.model.SampleData;
 
 @Component
 public class SampleSqsListener {
