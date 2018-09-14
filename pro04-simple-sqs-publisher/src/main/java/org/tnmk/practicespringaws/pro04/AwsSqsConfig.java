@@ -1,69 +1,76 @@
 package org.tnmk.practicespringaws.pro04;
-
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.internal.StaticCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import javax.annotation.PostConstruct;
+import javax.jms.Session;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
+import org.springframework.jms.support.converter.MessageConverter;
+import org.springframework.jms.support.converter.MessageType;
 import org.springframework.jms.support.destination.DynamicDestinationResolver;
-import org.springframework.messaging.converter.MappingJackson2MessageConverter;
-import org.springframework.messaging.handler.annotation.support.PayloadArgumentResolver;
-import org.springframework.messaging.handler.invocation.HandlerMethodArgumentResolver;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
 
-import javax.jms.Session;
-import java.util.Collections;
-
+/**
+ * Copied from here:
+ * https://github.com/jonyfs/spring-boot-jms-sqs/blob/master/src/main/java/br/com/jonyfs/JmsConfig.java
+ */
 @Configuration
+@EnableJms
 public class AwsSqsConfig {
 
-    @Bean
-    public SQSConnectionFactory sqsConnectionFactory(AwsProperties awsProperties) {
-        SQSConnectionFactory connectionFactory =
-            new SQSConnectionFactory.Builder()
-                .withRegion(Region.getRegion(Regions.fromName(awsProperties.getRegion())))
-                .withAWSCredentialsProvider(
-                    new AWSStaticCredentialsProvider(
-                        new BasicAWSCredentials(
-                            awsProperties.getAccessKey(),
-                            awsProperties.getSecretKey()
-                        )
-                    )
-                )
-                .build();
-        return connectionFactory;
+
+    private final SQSConnectionFactory connectionFactory;
+
+    public AwsSqsConfig(AwsProperties awsProperties) {
+        connectionFactory = SQSConnectionFactory.builder()
+            .withRegion(Region.getRegion(Regions.fromName(awsProperties.getRegion())))
+            .withAWSCredentialsProvider(new StaticCredentialsProvider(
+                new BasicAWSCredentials(awsProperties.getAccessKey(), awsProperties.getSecretKey())
+            ))
+            .build();
     }
 
-
     @Bean
-    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(SQSConnectionFactory sqsConnectionFactory) {
-        DefaultJmsListenerContainerFactory factory =
-            new DefaultJmsListenerContainerFactory();
-        factory.setConnectionFactory(sqsConnectionFactory);
+    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory() {
+        DefaultJmsListenerContainerFactory factory
+            = new DefaultJmsListenerContainerFactory();
+        factory.setConnectionFactory(this.connectionFactory);
         factory.setDestinationResolver(new DynamicDestinationResolver());
         factory.setConcurrency("3-10");
         factory.setSessionAcknowledgeMode(Session.CLIENT_ACKNOWLEDGE);
+        factory.setMessageConverter(messageConverter());
         return factory;
     }
 
     @Bean
-    public JmsTemplate defaultJmsTemplate(SQSConnectionFactory sqsConnectionFactory) {
-        return new JmsTemplate(sqsConnectionFactory);
+    public JmsTemplate jmsTemplate() {
+        JmsTemplate jmsTemplate = new JmsTemplate(this.connectionFactory);
+        jmsTemplate.setMessageConverter(messageConverter());
+        return jmsTemplate;
     }
 
-//
-//    @Bean
-//    public QueueMessageHandlerFactory queueMessageHandlerFactory() {
-//        QueueMessageHandlerFactory factory = new QueueMessageHandlerFactory();
-//        MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
-//
-//        //set strict content type match to false
-//        messageConverter.setStrictContentTypeMatch(false);
-//        factory.setArgumentResolvers(Collections.<HandlerMethodArgumentResolver>singletonList(new PayloadArgumentResolver(messageConverter)));
-//        return factory;
-//    }
+    @Bean
+    public MessageConverter messageConverter() {
+        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+        builder.serializationInclusion(JsonInclude.Include.NON_EMPTY);
+        builder.dateFormat(new ISO8601DateFormat());
+
+        MappingJackson2MessageConverter mappingJackson2MessageConverter = new MappingJackson2MessageConverter();
+
+        mappingJackson2MessageConverter.setObjectMapper(builder.build());
+        mappingJackson2MessageConverter.setTargetType(MessageType.TEXT);
+        mappingJackson2MessageConverter.setTypeIdPropertyName("documentType");
+        return mappingJackson2MessageConverter;
+    }
 }
