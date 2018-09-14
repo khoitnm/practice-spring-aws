@@ -1,14 +1,13 @@
 package org.tnmk.practicespringaws.pro04;
+
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.internal.StaticCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
-import javax.annotation.PostConstruct;
-import javax.jms.Session;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -20,6 +19,8 @@ import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 import org.springframework.jms.support.destination.DynamicDestinationResolver;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
+
+import javax.jms.Session;
 
 /**
  * Copied from here:
@@ -60,15 +61,20 @@ public class AwsSqsConfig {
         return jmsTemplate;
     }
 
+    /**
+     * Spring already has this bean by default. This code is just used for showing example how to customize the {@link MessageConverter}.
+     * @return
+     */
     @Bean
     public MessageConverter messageConverter() {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder.serializationInclusion(JsonInclude.Include.NON_EMPTY);
         builder.dateFormat(new ISO8601DateFormat());
+        ObjectMapper objectMapper = builder.build();
+
 
         MappingJackson2MessageConverter mappingJackson2MessageConverter = new MappingJackson2MessageConverter();
-
-        mappingJackson2MessageConverter.setObjectMapper(builder.build());
+        mappingJackson2MessageConverter.setObjectMapper(objectMapper);
         mappingJackson2MessageConverter.setTargetType(MessageType.TEXT);
         mappingJackson2MessageConverter.setTypeIdPropertyName("documentType");
         return mappingJackson2MessageConverter;
