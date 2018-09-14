@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.tnmk.skeleton.practice-spring-aws</groupId>
-    <artifactId>pro04-simple-sqs-publisher</artifactId>
+    <artifactId>pro04-simple-sqs-json</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
