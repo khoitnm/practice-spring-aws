@@ -12,7 +12,7 @@ public class SampleSqsPublisher {
     private final String queue;
 
     @Autowired
-    public SampleSqsPublisher(JmsTemplate defaultJmsTemplate, @Value("${sample.queue}") String queue) {
+    public SampleSqsPublisher(JmsTemplate defaultJmsTemplate, @Value("${sample.sqs.queue}") String queue) {
         this.defaultJmsTemplate = defaultJmsTemplate;
         this.queue = queue;
     }
