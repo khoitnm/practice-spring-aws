@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04;
+package org.tnmk.practicespringaws.pro04.aws.sqs.model;
 
 public class SampleData {
     private String value;
