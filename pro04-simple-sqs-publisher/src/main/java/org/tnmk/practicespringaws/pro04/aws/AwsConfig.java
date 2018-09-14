@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04;
+package org.tnmk.practicespringaws.pro04.aws;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
