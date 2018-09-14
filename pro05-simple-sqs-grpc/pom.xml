@@ -20,6 +20,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>8</java.version>
         <spock.version>1.1-groovy-2.4</spock.version>
+        <google.protobuf.version>3.5.1</google.protobuf.version>
     </properties>
 
     <dependencies>
@@ -60,6 +61,14 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.8</version>
         </dependency>
+
+        <!-- ProtoBuf serializer -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${google.protobuf.version}</version>
+        </dependency>
+
 
         <!--Test-->
         <dependency>
@@ -111,6 +120,33 @@
                     </includes>
                 </configuration>
             </plugin>
+
+            <!-- PROTO-BUF GENERATION: The plugin for generating Java files from ProtoBuf files -->
+            <plugin>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:3.5.1-1:exe:${os.detected.classifier}</protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.11.0:exe:${os.detected.classifier}</pluginArtifact>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                            <goal>compile-custom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+        <extensions>
+            <!-- PROTO-BUF GENERATION: provides os.detected.classifier (i.e. linux-x86_64, osx-x86_64) property -->
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+            </extension>
+        </extensions>
     </build>
 </project>

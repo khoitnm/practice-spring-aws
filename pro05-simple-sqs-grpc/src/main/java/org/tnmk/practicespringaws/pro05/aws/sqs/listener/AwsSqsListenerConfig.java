@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04.aws.sqs.listener;
+package org.tnmk.practicespringaws.pro05.aws.sqs.listener;
 
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import org.springframework.context.annotation.Bean;

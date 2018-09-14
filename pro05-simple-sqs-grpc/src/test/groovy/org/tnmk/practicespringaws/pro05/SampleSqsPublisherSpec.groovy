@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04
+package org.tnmk.practicespringaws.pro05
 
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
 import org.springframework.test.annotation.DirtiesContext
-import org.tnmk.practicespringaws.pro04.aws.sqs.listener.story.SampleDataAwareness
-import org.tnmk.practicespringaws.pro04.aws.sqs.model.SampleData
-import org.tnmk.practicespringaws.pro04.aws.sqs.publisher.story.SampleSqsPublisher
+import org.tnmk.practicespringaws.pro05.aws.sqs.listener.story.SampleDataAwareness
+import org.tnmk.practicespringaws.pro05.aws.sqs.model.SampleData
+import org.tnmk.practicespringaws.pro05.aws.sqs.publisher.story.SampleSqsPublisher
 import spock.lang.Shared
 import spock.util.concurrent.PollingConditions
 
@@ -43,11 +43,12 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
 
     def 'Publish Sqs message successfully'() {
         given:
-        SampleData sampleData = new SampleData();
-        sampleData.value = "new sample data "+System.nanoTime();
+        SampleMessageProto sampleMessageProto = SampleMessageProto.newBuilder()
+            .setValue("sample message value "+System.nanoTime())
+            .build();
 
         when:
-        sampleSqsPublisher.publish(sampleData)
+        sampleSqsPublisher.publish(sampleMessageProto)
 
         then:
         pollingConditions.eventually {

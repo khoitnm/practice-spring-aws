@@ -1,14 +1,14 @@
-package org.tnmk.practicespringaws.pro04
+package org.tnmk.practicespringaws.pro05
 
 import org.junit.Ignore
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import org.tnmk.practicespringaws.pro04.Pro04Application
+import org.tnmk.practicespringaws.pro05.Pro05Application
 import spock.lang.Specification
 
 @Ignore
 @ActiveProfiles("componenttest")
-@SpringBootTest(classes = Pro04Application.class)
+@SpringBootTest(classes = Pro05Application.class)
 abstract class BaseComponentSpecification extends Specification {
 
 }
