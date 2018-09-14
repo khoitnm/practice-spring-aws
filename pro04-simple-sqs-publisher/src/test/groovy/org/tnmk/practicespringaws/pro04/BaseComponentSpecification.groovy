@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro02awsjavasdks3.common.aws
+package org.tnmk.practicespringaws.pro04
 
 import org.junit.Ignore
 import org.springframework.boot.test.context.SpringBootTest
