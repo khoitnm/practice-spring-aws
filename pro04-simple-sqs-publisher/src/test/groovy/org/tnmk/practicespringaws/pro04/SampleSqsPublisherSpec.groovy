@@ -16,12 +16,12 @@ import spock.util.concurrent.PollingConditions
 @DirtiesContext
 @Import(MockConfiguration.class)
 class SampleSqsPublisherSpec extends BaseComponentSpecification {
-    @TestConfiguration
-    public static class MockConfiguration {
 
+    @TestConfiguration
+    static class MockConfiguration {
         @Primary
         @Bean
-        public SampleDataAwareness mockSampleDataAwareness() {
+        SampleDataAwareness mockSampleDataAwareness() {
             return Mockito.mock(SampleDataAwareness.class);
         }
     }
@@ -36,7 +36,7 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
     PollingConditions pollingConditions;
 
     def setup(){
-        pollingConditions = new PollingConditions(timeout: 3)
+        pollingConditions = new PollingConditions(timeout: 1)
         Mockito.reset(mockSampleDataAwareness);
     }
 
@@ -44,7 +44,7 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
     def 'Publish Sqs message successfully'() {
         given:
         SampleData sampleData = new SampleData();
-        sampleData.value = "xxx"+System.nanoTime();
+        sampleData.value = "new sample data "+System.nanoTime();
 
         when:
         sampleSqsPublisher.publish(sampleData)
