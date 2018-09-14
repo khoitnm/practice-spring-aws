@@ -3,7 +3,6 @@ package org.tnmk.practicespringaws.pro04
 import org.junit.Ignore
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import Pro03Application
 import org.tnmk.practicespringaws.pro04.Pro04Application
 import spock.lang.Specification
 
