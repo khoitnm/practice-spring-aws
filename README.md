@@ -13,7 +13,7 @@ So to get both binary data and metadata in the same request, we have to write ou
 5. `pro05-simple-sqs-grpc` : send the SQS message as ProtoBuf format.
 Note: If you want to see the sending message in the queue, please disable Listener when running test (Just comment out the @Component or @Service annotation in Listener).
 
-It has 2 classes for transformation between SQS message with Grpc objects:
+It has 2 classes for transformation between SQS message and Grpc objects:
 - `ProtobufMessageConverterByClassCanonicalName`: use when both SQS publisher and listener are Java codes.
 - `ProtobufMessageConverterByClassSimpleName`: use when either SQS publisher or listener is NOT Java code.
  
