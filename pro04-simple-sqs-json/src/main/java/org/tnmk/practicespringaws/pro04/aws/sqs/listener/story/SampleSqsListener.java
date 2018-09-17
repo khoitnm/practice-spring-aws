@@ -6,7 +6,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import org.tnmk.practicespringaws.pro04.aws.sqs.model.SampleData;
 
-//@Component
+@Component
 public class SampleSqsListener {
     private final SampleDataAwareness sampleDataAwareness;
 

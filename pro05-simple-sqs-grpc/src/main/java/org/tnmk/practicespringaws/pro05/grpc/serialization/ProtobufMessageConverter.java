@@ -3,12 +3,11 @@ package org.tnmk.practicespringaws.pro05.grpc.serialization;
 //import com.google.common.base.Preconditions;
 
 import com.amazon.sqs.javamessaging.message.SQSBytesMessage;
-import com.google.protobuf.Descriptors;
-import com.google.protobuf.DynamicMessage;
 import com.google.protobuf.GeneratedMessageV3;
 import org.springframework.jms.support.converter.MessageConversionException;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.messaging.MessageHeaders;
+import org.springframework.util.ClassUtils;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -20,12 +19,12 @@ import javax.jms.Session;
 public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements MessageConverter {
 
     private final static String CONTENT_TYPE_PROTOBUF = "application/protobuf";
+    private final static String MESSAGE_TYPE = "messageType";
 
-    private final ProtobufDeserializer<T> protobufDeserializer;
 
-    public ProtobufMessageConverter(Class<T> messageType) {
-        this.protobufDeserializer = new ProtobufDeserializer<T>(messageType);
-    }
+//    private final ProtobufDeserializer<T> protobufDeserializer;
+
+    public ProtobufMessageConverter() { }
 
 
     @Override
@@ -37,6 +36,7 @@ public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements M
             byte[] byteArray = protobuf.toByteArray();
             SQSBytesMessage sqsBytesMessage = new SQSBytesMessage();
             sqsBytesMessage.setStringProperty(MessageHeaders.CONTENT_TYPE, ProtobufMessageConverter.CONTENT_TYPE_PROTOBUF);
+            sqsBytesMessage.setStringProperty(MESSAGE_TYPE, object.getClass().getCanonicalName());
             sqsBytesMessage.writeBytes(byteArray);
             return sqsBytesMessage;
         }
@@ -51,8 +51,13 @@ public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements M
             try {
                 String contentType = message.getStringProperty(MessageHeaders.CONTENT_TYPE);
                 if (ProtobufMessageConverter.CONTENT_TYPE_PROTOBUF.equals(contentType)) {
+                    String messageTypeName = message.getStringProperty(MESSAGE_TYPE);
+                    Class<?> messageType  = ClassUtils.forName(messageTypeName, this.getClass().getClassLoader());
+                    ProtobufDeserializer protobufDeserializer = new ProtobufDeserializer(messageType);
+
                     byte[] payLoadBytes = sqsBytesMessage.getBodyAsBytes();
-                    T parsedProtobufMessage = protobufDeserializer.deserialize(payLoadBytes);
+
+                    Object parsedProtobufMessage = protobufDeserializer.deserialize(payLoadBytes);
                     return parsedProtobufMessage;
                 } else {
                     throw new MessageConversionException("Cannot convert, unknown message type %s".format(contentType));

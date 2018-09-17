@@ -62,8 +62,8 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
         then:
         pollingConditions.eventually {
             // Just do this because I turn off the Listener
-//            Mockito.verify(mockSampleDataAwareness, Mockito.atLeast(1))
-//                    .aware(Mockito.any())
+            Mockito.verify(mockSampleDataAwareness, Mockito.atLeast(1))
+                    .aware(Mockito.any())
         }
     }
 
