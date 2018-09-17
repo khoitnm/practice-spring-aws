@@ -8,6 +8,7 @@ import com.google.protobuf.DynamicMessage;
 import org.springframework.jms.support.converter.MessageConversionException;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.messaging.MessageHeaders;
+import org.springframework.util.ClassUtils;
 import org.tnmk.practicespringaws.pro05.SampleMessageProto;
 
 import javax.jms.JMSException;
@@ -66,6 +67,7 @@ public class ProtobufMessageConverter implements MessageConverter {
                 String contentType = message.getStringProperty(MessageHeaders.CONTENT_TYPE);
                 if (ProtobufMessageConverter.CONTENT_TYPE_PROTOBUF.equals(contentType)) {
                     String descriptorName = message.getStringProperty(ProtobufMessageConverter.MESSAGE_TYPE_NAME);
+//                    Class<?> descriptorClass = ClassUtils.forName(descriptorName, this.getClass().getClassLoader());
 //                    Descriptors.Descriptor descriptor = Descriptors.FileDescriptor.
 //                    String typeName = getMessageTypeName(message);
 //                    Descriptors.Descriptor descriptor = (Descriptors.Descriptor) message.getObjectProperty("descriptor");
