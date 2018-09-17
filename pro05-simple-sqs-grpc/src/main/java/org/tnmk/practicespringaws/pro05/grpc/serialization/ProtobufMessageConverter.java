@@ -20,12 +20,6 @@ import javax.jms.Session;
 public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements MessageConverter {
 
     private final static String CONTENT_TYPE_PROTOBUF = "application/protobuf";
-    /**
-     * @deprecated This property may be redundant.
-     */
-    @Deprecated
-    private final static String CLASS_TYPE = "type";
-
 
     private final ProtobufDeserializer<T> protobufDeserializer;
 
@@ -43,7 +37,6 @@ public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements M
             byte[] byteArray = protobuf.toByteArray();
             SQSBytesMessage sqsBytesMessage = new SQSBytesMessage();
             sqsBytesMessage.setStringProperty(MessageHeaders.CONTENT_TYPE, ProtobufMessageConverter.CONTENT_TYPE_PROTOBUF);
-            sqsBytesMessage.setStringProperty(ProtobufMessageConverter.CLASS_TYPE, object.getClass().getTypeName());
             sqsBytesMessage.writeBytes(byteArray);
             return sqsBytesMessage;
         }
