@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-import org.tnmk.practicespringaws.pro05.SampleMessageProto;
+import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto;
 
-@Component
+//@Component
 public class SampleSqsListener {
     private final SampleDataAwareness sampleDataAwareness;
 
@@ -16,7 +16,7 @@ public class SampleSqsListener {
     }
 
     @JmsListener(destination = "${sample.sqs.queue}")
-    public void processMessageA(@Payload final SampleMessageProto sampleData) {
+    public void processMessageA(@Payload final SampleComplicatedMessageProto sampleData) {
         sampleDataAwareness.aware(sampleData);
     }
 }

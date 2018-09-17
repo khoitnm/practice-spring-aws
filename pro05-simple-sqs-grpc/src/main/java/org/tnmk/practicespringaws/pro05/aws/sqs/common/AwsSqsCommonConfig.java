@@ -5,17 +5,12 @@ import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.StdDateFormat;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.jms.annotation.EnableJms;
-import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
-import org.springframework.jms.support.converter.MessageType;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
+import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto;
 import org.tnmk.practicespringaws.pro05.SampleMessageProto;
 import org.tnmk.practicespringaws.pro05.grpc.serialization.ProtobufMessageConverter;
 
@@ -50,7 +45,7 @@ public class AwsSqsCommonConfig {
      */
     @Bean
     public MessageConverter messageConverter() {
-        return new ProtobufMessageConverter(SampleMessageProto.class);
+        return new ProtobufMessageConverter(SampleComplicatedMessageProto.class);
 //
 //        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
 //        builder.serializationInclusion(JsonInclude.Include.NON_EMPTY);

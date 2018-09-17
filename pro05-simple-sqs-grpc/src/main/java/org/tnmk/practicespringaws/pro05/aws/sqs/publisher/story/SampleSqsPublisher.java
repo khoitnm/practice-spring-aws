@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
-import org.tnmk.practicespringaws.pro05.SampleMessage;
-import org.tnmk.practicespringaws.pro05.SampleMessageProto;
+import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto;
 
 @Component
 public class SampleSqsPublisher {
@@ -19,7 +18,7 @@ public class SampleSqsPublisher {
         this.queue = queue;
     }
 
-    public void publish(SampleMessageProto sampleMessageProto) {
+    public void publish(SampleComplicatedMessageProto sampleMessageProto) {
         defaultJmsTemplate.convertAndSend(queue, sampleMessageProto);
     }
 }

@@ -42,8 +42,14 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
 
     def 'Publish Sqs message successfully'() {
         given:
-        SampleMessageProto sampleMessageProto = SampleMessageProto.newBuilder()
+        ChildProto childProto = ChildProto.newBuilder()
+            .setValue("child "+System.nanoTime())
+            .build();
+
+        SampleComplicatedMessageProto sampleMessageProto = SampleComplicatedMessageProto.newBuilder()
             .setValue("sample message value "+System.nanoTime())
+            .addChildren(childProto)
+            .putChildrenMaps("child 1", childProto)
             .build();
 
         when:

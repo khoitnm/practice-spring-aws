@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
 import org.springframework.test.annotation.DirtiesContext
 import org.tnmk.practicespringaws.pro04.aws.sqs.listener.story.SampleDataAwareness
+import org.tnmk.practicespringaws.pro04.aws.sqs.model.Child
 import org.tnmk.practicespringaws.pro04.aws.sqs.model.SampleData
 import org.tnmk.practicespringaws.pro04.aws.sqs.publisher.story.SampleSqsPublisher
 import spock.lang.Shared
@@ -43,8 +44,13 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
 
     def 'Publish Sqs message successfully'() {
         given:
+        Child child = new Child( id: UUID.randomUUID().toString(), value: "Child "+System.nanoTime());
+
         SampleData sampleData = new SampleData();
         sampleData.value = "new sample data "+System.nanoTime();
+        sampleData.children = Arrays.asList(child);
+        sampleData.childrenMap = new HashMap<String, Child>();
+        sampleData.childrenMap.put("child 1", child);
 
         when:
         sampleSqsPublisher.publish(sampleData)
