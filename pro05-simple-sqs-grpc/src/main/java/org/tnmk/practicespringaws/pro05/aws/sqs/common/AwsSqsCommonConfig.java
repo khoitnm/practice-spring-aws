@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
-import org.tnmk.practicespringaws.pro05.grpc.serialization.ProtobufMessageConverter;
+import org.tnmk.practicespringaws.pro05.grpc.serialization.ProtobufMessageConverterByClassCanonicalName;
+import org.tnmk.practicespringaws.pro05.grpc.serialization.ProtobufMessageConverterByClassSimpleName;
 
 /**
  * Copied from here:
@@ -43,6 +44,6 @@ public class AwsSqsCommonConfig {
      */
     @Bean
     public MessageConverter messageConverter() {
-        return new ProtobufMessageConverter();
+        return new ProtobufMessageConverterByClassSimpleName();
     }
 }

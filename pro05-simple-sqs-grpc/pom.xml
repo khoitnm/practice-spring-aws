@@ -62,6 +62,14 @@
             <version>3.8</version>
         </dependency>
 
+        <!-- For Reflections: finding full class name from simple name -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.11</version>
+        </dependency>
+
+
         <!-- ProtoBuf serializer -->
         <dependency>
             <groupId>com.google.protobuf</groupId>

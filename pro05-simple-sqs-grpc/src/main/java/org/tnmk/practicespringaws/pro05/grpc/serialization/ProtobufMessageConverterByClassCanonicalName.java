@@ -14,17 +14,23 @@ import javax.jms.Message;
 import javax.jms.Session;
 
 /**
+ * If both client app and server app use Java, this class is the best. Otherwise, use {@link ProtobufMessageConverterByClassSimpleName}.
+ *
  * Based on Scala version : https://github.com/gensen/spring-amqp-protobuf/blob/master/src/main/scala/com/gs/amqp/ProtobufMessageConverter.scala
  * TODO 1. add some cache for ProtbufDeserializer.
  * TODO 2. client app may not use Java, so there will be no full class name in messageType. We may need a mechanism to load full class name form a simplified messageType.
+ * To solve the TODO 2, we can try to find the full class name from simple name:
+ * https://stackoverflow.com/questions/13215403/finding-a-class-reflectively-by-its-simple-name-alone
+ * https://stackoverflow.com/questions/1308961/how-do-i-get-a-list-of-packages-and-or-classes-on-the-classpath
+ * https://code.google.com/archive/p/reflections/
  */
-public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements MessageConverter {
+public class ProtobufMessageConverterByClassCanonicalName<T extends GeneratedMessageV3> implements MessageConverter {
 
     private final static String CONTENT_TYPE_PROTOBUF = "application/protobuf";
     private final static String MESSAGE_TYPE = "messageType";
 
 
-    public ProtobufMessageConverter() { }
+    public ProtobufMessageConverterByClassCanonicalName() { }
 
 
     @Override
@@ -35,7 +41,7 @@ public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements M
             com.google.protobuf.Message protobuf = (com.google.protobuf.Message) object;
             byte[] byteArray = protobuf.toByteArray();
             SQSBytesMessage sqsBytesMessage = new SQSBytesMessage();
-            sqsBytesMessage.setStringProperty(MessageHeaders.CONTENT_TYPE, ProtobufMessageConverter.CONTENT_TYPE_PROTOBUF);
+            sqsBytesMessage.setStringProperty(MessageHeaders.CONTENT_TYPE, ProtobufMessageConverterByClassCanonicalName.CONTENT_TYPE_PROTOBUF);
             sqsBytesMessage.setStringProperty(MESSAGE_TYPE, object.getClass().getCanonicalName());
             sqsBytesMessage.writeBytes(byteArray);
             return sqsBytesMessage;
@@ -50,15 +56,14 @@ public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements M
 
             try {
                 String contentType = message.getStringProperty(MessageHeaders.CONTENT_TYPE);
-                if (ProtobufMessageConverter.CONTENT_TYPE_PROTOBUF.equals(contentType)) {
-                    String messageTypeName = message.getStringProperty(MESSAGE_TYPE);
-                    Class<?> messageType  = ClassUtils.forName(messageTypeName, this.getClass().getClassLoader());
-                    ProtobufDeserializer protobufDeserializer = new ProtobufDeserializer(messageType);
+                if (ProtobufMessageConverterByClassCanonicalName.CONTENT_TYPE_PROTOBUF.equals(contentType)) {
+                    Class<?> payloadClass  = getPayloadClassOfMessageByClassCanonicalName(message);
+                    ProtobufDeserializer protobufDeserializer = new ProtobufDeserializer(payloadClass);
 
                     byte[] payLoadBytes = sqsBytesMessage.getBodyAsBytes();
 
-                    Object parsedProtobufMessage = protobufDeserializer.deserialize(payLoadBytes);
-                    return parsedProtobufMessage;
+                    Object payload = protobufDeserializer.deserialize(payLoadBytes);
+                    return payload;
                 } else {
                     throw new MessageConversionException("Cannot convert, unknown message type %s".format(contentType));
                 }
@@ -68,5 +73,11 @@ public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements M
         } else {
             throw new MessageConversionException("Message must be SQSBytesMessage: " + message);
         }
+    }
+
+    private Class<?> getPayloadClassOfMessageByClassCanonicalName(Message message) throws ClassNotFoundException, JMSException {
+        String payloadClassCanoncialName = message.getStringProperty(MESSAGE_TYPE);
+        Class<?> payloadClass  = ClassUtils.forName(payloadClassCanoncialName, this.getClass().getClassLoader());
+        return payloadClass;
     }
 }
