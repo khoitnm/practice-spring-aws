@@ -14,6 +14,7 @@
         <module>pro02-customize-download-s3-by-aws-java-sdk</module>
         <module>pro03-customize-upload-s3-by-aws-java-sdk</module>
         <module>pro04-simple-sqs-json</module>
+        <module>pro05-simple-sqs-grpc</module>
     </modules>
 
     <parent>

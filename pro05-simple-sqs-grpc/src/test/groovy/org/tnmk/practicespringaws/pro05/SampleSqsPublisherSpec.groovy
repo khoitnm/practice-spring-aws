@@ -1,5 +1,6 @@
-package org.tnmk.practicespringaws.pro04
+package org.tnmk.practicespringaws.pro05
 
+import com.amazonaws.services.organizations.model.Child
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.TestConfiguration
@@ -7,10 +8,8 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
 import org.springframework.test.annotation.DirtiesContext
-import org.tnmk.practicespringaws.pro04.aws.sqs.listener.story.SampleDataAwareness
-import org.tnmk.practicespringaws.pro04.aws.sqs.model.Child
-import org.tnmk.practicespringaws.pro04.aws.sqs.model.SampleData
-import org.tnmk.practicespringaws.pro04.aws.sqs.publisher.story.SampleSqsPublisher
+import org.tnmk.practicespringaws.pro05.aws.sqs.listener.story.SampleDataAwareness
+import org.tnmk.practicespringaws.pro05.aws.sqs.publisher.story.SampleSqsPublisher
 import spock.lang.Shared
 import spock.util.concurrent.PollingConditions
 
@@ -36,7 +35,7 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
     @Shared
     PollingConditions pollingConditions;
 
-    def setup(){
+    def setup() {
         pollingConditions = new PollingConditions(timeout: 1)
         Mockito.reset(mockSampleDataAwareness);
     }
@@ -44,34 +43,39 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
 
     def 'Publish Sqs message successfully'() {
         given:
-        Child child = new Child( id: System.nanoTime(), value: "Child "+System.nanoTime());
+        ChildProto childProto = ChildProto.newBuilder()
+                .setId(System.nanoTime())
+                .setValue("Child " + System.nanoTime())
+                .build();
 
-        SampleData sampleData = new SampleData();
-        sampleData.value = "sample message value "+System.nanoTime();
-        sampleData.children = constructChildren(20);
-        sampleData.childrenMap = new HashMap<String, Child>();
-        sampleData.childrenMap.put("child 1", child);
-        sampleData.childrenMap.put("child 2", child);
-        sampleData.childrenMap.put("child 3", child);
+        SampleComplicatedMessageProto sampleMessageProto = SampleComplicatedMessageProto.newBuilder()
+                .setValue("sample message value " + System.nanoTime())
+                .addAllChildren(constructChildren(20))
+                .putChildrenMaps("child 1", childProto)
+                .putChildrenMaps("child 2", childProto)
+                .putChildrenMaps("child 3", childProto)
+                .build();
 
         when:
-        sampleSqsPublisher.publish(sampleData)
+        sampleSqsPublisher.publish(sampleMessageProto)
 
         then:
         pollingConditions.eventually {
             // Just do this because I turn off the Listener
-//            Mockito.verify(mockSampleDataAwareness, Mockito.times(1))
+//            Mockito.verify(mockSampleDataAwareness, Mockito.atLeast(1))
 //                    .aware(Mockito.any())
         }
     }
 
-    private List<Child> constructChildren(int numOfChildren){
-        List<Child> children = new ArrayList<>();
+    private List<ChildProto> constructChildren(int numOfChildren){
+        List<ChildProto> children = new ArrayList<>();
         for (int i = 0; i < numOfChildren; i++) {
-            Child child = new Child( id: i, value: "Child "+System.nanoTime());
-            children.add(child);
+            ChildProto childProto = ChildProto.newBuilder()
+                    .setId(i)
+                    .setValue("Child " + System.nanoTime())
+                    .build();
+            children.add(childProto);
         }
         return children;
     }
 }
-

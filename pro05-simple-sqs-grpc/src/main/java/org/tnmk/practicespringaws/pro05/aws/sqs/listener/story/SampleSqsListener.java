@@ -1,10 +1,10 @@
-package org.tnmk.practicespringaws.pro04.aws.sqs.listener.story;
+package org.tnmk.practicespringaws.pro05.aws.sqs.listener.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-import org.tnmk.practicespringaws.pro04.aws.sqs.model.SampleData;
+import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto;
 
 //@Component
 public class SampleSqsListener {
@@ -16,7 +16,7 @@ public class SampleSqsListener {
     }
 
     @JmsListener(destination = "${sample.sqs.queue}")
-    public void processMessageA(@Payload final SampleData sampleData) {
+    public void processMessageA(@Payload final SampleComplicatedMessageProto sampleData) {
         sampleDataAwareness.aware(sampleData);
     }
 }
