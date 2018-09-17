@@ -8,7 +8,6 @@ import org.reflections.Reflections;
 import org.springframework.jms.support.converter.MessageConversionException;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.messaging.MessageHeaders;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
 import javax.jms.JMSException;
@@ -27,8 +26,13 @@ public class ProtobufMessageConverterByClassSimpleName implements MessageConvert
     private final static String CONTENT_TYPE_PROTOBUF = "application/protobuf";
     private final static String MESSAGE_TYPE = "messageType";
 
+    private final String protobufPackage;
 
-    public ProtobufMessageConverterByClassSimpleName() {
+    /**
+     * @param protobufPackage the package which store proto classes.
+     */
+    public ProtobufMessageConverterByClassSimpleName(String protobufPackage) {
+        this.protobufPackage = protobufPackage;
     }
 
 
@@ -76,7 +80,7 @@ public class ProtobufMessageConverterByClassSimpleName implements MessageConvert
 
     private Class<?> getPayloadClassOfMessageByClassSimpleName(Message message) throws ClassNotFoundException, JMSException {
         String payloadClassSimpleName = message.getStringProperty(MESSAGE_TYPE);
-        Reflections reflections = new Reflections();
+        Reflections reflections = new Reflections(protobufPackage);
         Set<Class<? extends GeneratedMessageV3>> protoClasses = reflections.getSubTypesOf(GeneratedMessageV3.class);
         Set<Class<? extends GeneratedMessageV3>> protoClassesWithSameSimpleName = protoClasses.stream().filter(
             clazz -> clazz.getSimpleName().equals(payloadClassSimpleName)
