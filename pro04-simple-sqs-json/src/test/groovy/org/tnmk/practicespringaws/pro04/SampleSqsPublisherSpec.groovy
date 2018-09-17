@@ -47,10 +47,12 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
         Child child = new Child( id: System.nanoTime(), value: "Child "+System.nanoTime());
 
         SampleData sampleData = new SampleData();
-        sampleData.value = "new sample data "+System.nanoTime();
-        sampleData.children = Arrays.asList(child);
+        sampleData.value = "sample message value "+System.nanoTime();
+        sampleData.children = constructChildren(10);
         sampleData.childrenMap = new HashMap<String, Child>();
         sampleData.childrenMap.put("child 1", child);
+        sampleData.childrenMap.put("child 2", child);
+        sampleData.childrenMap.put("child 3", child);
 
         when:
         sampleSqsPublisher.publish(sampleData)
@@ -61,4 +63,14 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
                     .aware(Mockito.any())
         }
     }
+
+    private List<Child> constructChildren(int numOfChildren){
+        List<Child> children = new ArrayList<>();
+        for (int i = 0; i < numOfChildren; i++) {
+            Child child = new Child( id: i, value: "Child "+System.nanoTime());
+            children.add(child);
+        }
+        return children;
+    }
 }
+

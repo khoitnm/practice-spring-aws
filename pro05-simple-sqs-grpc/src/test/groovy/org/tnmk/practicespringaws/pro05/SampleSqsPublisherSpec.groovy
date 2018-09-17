@@ -1,5 +1,6 @@
 package org.tnmk.practicespringaws.pro05
 
+import com.amazonaws.services.organizations.model.Child
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.TestConfiguration
@@ -34,7 +35,7 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
     @Shared
     PollingConditions pollingConditions;
 
-    def setup(){
+    def setup() {
         pollingConditions = new PollingConditions(timeout: 1)
         Mockito.reset(mockSampleDataAwareness);
     }
@@ -43,15 +44,17 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
     def 'Publish Sqs message successfully'() {
         given:
         ChildProto childProto = ChildProto.newBuilder()
-            .setId(System.nanoTime())
-            .setValue("child "+System.nanoTime())
-            .build();
+                .setId(System.nanoTime())
+                .setValue("Child " + System.nanoTime())
+                .build();
 
         SampleComplicatedMessageProto sampleMessageProto = SampleComplicatedMessageProto.newBuilder()
-            .setValue("sample message value "+System.nanoTime())
-            .addChildren(childProto)
-            .putChildrenMaps("child 1", childProto)
-            .build();
+                .setValue("sample message value " + System.nanoTime())
+                .addAllChildren(constructChildren(10))
+                .putChildrenMaps("child 1", childProto)
+                .putChildrenMaps("child 2", childProto)
+                .putChildrenMaps("child 3", childProto)
+                .build();
 
         when:
         sampleSqsPublisher.publish(sampleMessageProto)
@@ -61,5 +64,17 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
             Mockito.verify(mockSampleDataAwareness, Mockito.atLeast(1))
                     .aware(Mockito.any())
         }
+    }
+
+    private List<ChildProto> constructChildren(int numOfChildren){
+        List<ChildProto> children = new ArrayList<>();
+        for (int i = 0; i < numOfChildren; i++) {
+            ChildProto childProto = ChildProto.newBuilder()
+                    .setId(i)
+                    .setValue("Child " + System.nanoTime())
+                    .build();
+            children.add(childProto);
+        }
+        return children;
     }
 }
