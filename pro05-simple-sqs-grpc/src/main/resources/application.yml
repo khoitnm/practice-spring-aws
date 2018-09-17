@@ -2,4 +2,4 @@ aws.region: {region}
 aws.accessKey: {accessKey}
 aws.secretKey: {secretKey}
 
-sample.sqs.queue: samplequeue_protbuf
+sample.sqs.queue: samplequeue_protobuf

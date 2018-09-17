@@ -44,7 +44,7 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
 
     def 'Publish Sqs message successfully'() {
         given:
-        Child child = new Child( id: UUID.randomUUID().toString(), value: "Child "+System.nanoTime());
+        Child child = new Child( id: System.nanoTime(), value: "Child "+System.nanoTime());
 
         SampleData sampleData = new SampleData();
         sampleData.value = "new sample data "+System.nanoTime();
