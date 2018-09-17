@@ -15,14 +15,14 @@ import javax.jms.Session;
 
 /**
  * Based on Scala version : https://github.com/gensen/spring-amqp-protobuf/blob/master/src/main/scala/com/gs/amqp/ProtobufMessageConverter.scala
+ * TODO 1. add some cache for ProtbufDeserializer.
+ * TODO 2. client app may not use Java, so there will be no full class name in messageType. We may need a mechanism to load full class name form a simplified messageType.
  */
 public class ProtobufMessageConverter<T extends GeneratedMessageV3> implements MessageConverter {
 
     private final static String CONTENT_TYPE_PROTOBUF = "application/protobuf";
     private final static String MESSAGE_TYPE = "messageType";
 
-
-//    private final ProtobufDeserializer<T> protobufDeserializer;
 
     public ProtobufMessageConverter() { }
 
