@@ -10,8 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
-import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto;
-import org.tnmk.practicespringaws.pro05.SampleMessageProto;
 import org.tnmk.practicespringaws.pro05.grpc.serialization.ProtobufMessageConverter;
 
 /**
@@ -45,18 +43,6 @@ public class AwsSqsCommonConfig {
      */
     @Bean
     public MessageConverter messageConverter() {
-        return new ProtobufMessageConverter(SampleComplicatedMessageProto.class);
-//
-//        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
-//        builder.serializationInclusion(JsonInclude.Include.NON_EMPTY);
-//        builder.dateFormat(new StdDateFormat());
-//        ObjectMapper objectMapper = builder.build();
-//
-//
-//        MappingJackson2MessageConverter mappingJackson2MessageConverter = new MappingJackson2MessageConverter();
-//        mappingJackson2MessageConverter.setObjectMapper(objectMapper);
-//        mappingJackson2MessageConverter.setTargetType(MessageType.TEXT);
-//        mappingJackson2MessageConverter.setTypeIdPropertyName("documentType");
-//        return mappingJackson2MessageConverter;
+        return new ProtobufMessageConverter();
     }
 }
