@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro05.aws.sqs.listener.story;
+package org.tnmk.practicespringaws.pro05.story.listener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
@@ -7,8 +7,6 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto;
-
-import javax.jms.Message;
 
 @Component
 public class SampleSqsListener {
