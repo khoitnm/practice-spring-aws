@@ -1,7 +1,6 @@
 package org.tnmk.practicespringaws.pro05.org.tnmk.practicespringaws.pro05.aws.sqs.common.messageconverter.grpc
 
 import com.amazon.sqs.javamessaging.SQSQueueDestination
-import com.amazon.sqs.javamessaging.message.SQSBytesMessage
 import com.google.protobuf.GeneratedMessageV3
 import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto
 import org.tnmk.practicespringaws.pro05.SampleMessageProto

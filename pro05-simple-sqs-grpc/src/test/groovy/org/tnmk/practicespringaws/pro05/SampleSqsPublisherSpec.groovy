@@ -1,6 +1,5 @@
 package org.tnmk.practicespringaws.pro05
 
-import com.amazonaws.services.organizations.model.Child
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.TestConfiguration

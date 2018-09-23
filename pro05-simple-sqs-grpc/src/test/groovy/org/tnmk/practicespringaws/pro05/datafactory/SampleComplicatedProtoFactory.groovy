@@ -4,7 +4,7 @@ import org.tnmk.practicespringaws.pro05.ChildProto
 import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto
 
 class SampleComplicatedProtoFactory {
-    public static SampleComplicatedMessageProto constructWithChildren(int numOfChildren) {
+    static SampleComplicatedMessageProto constructWithChildren(int numOfChildren) {
         SampleComplicatedMessageProto sampleMessageProto = SampleComplicatedMessageProto.newBuilder()
                 .setValue("sample message value " + System.nanoTime())
                 .addAllChildren(constructChildren(numOfChildren))
