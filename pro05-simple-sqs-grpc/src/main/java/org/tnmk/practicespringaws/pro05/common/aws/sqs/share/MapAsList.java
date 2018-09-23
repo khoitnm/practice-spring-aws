@@ -18,5 +18,5 @@ public abstract class MapAsList<E> extends ArrayList<Object> {
         return map;
     }
 
-    protected abstract E getValue(int ival);
+    protected abstract E getValue(int valueIndex);
 }
