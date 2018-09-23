@@ -4,7 +4,7 @@ aws.secretKey: {secretKey}
 aws.sqs.payload-types-map-by-queue-name:
   - ${QUEUE01:samplequeue_protobuf_complicated_message}
   - org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto
-  - ${QUEUE02:queue02}
+  - ${QUEUE02:samplequeue_protobuf_simple_message}
   - org.tnmk.practicespringaws.pro05.SampleMessageProto
 
 sample.sqs.queue: samplequeue_protobuf_complicated_message
