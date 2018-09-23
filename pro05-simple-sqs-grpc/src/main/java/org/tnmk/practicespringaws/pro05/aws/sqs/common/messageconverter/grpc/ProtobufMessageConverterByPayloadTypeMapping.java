@@ -16,14 +16,14 @@ import java.util.Map;
  * This converter needs a little bit extra configuration compares to {@link ProtobufMessageConverterByClassSimpleName} or {@link ProtobufMessageConverterByClassCanonicalName}.
  * However, it provides more flexibility for client code.
  */
-public class ProtobufMessageConverterByQueueTypeMapping implements MessageConverter {
+public class ProtobufMessageConverterByPayloadTypeMapping implements MessageConverter {
 
     private final Map<String, Class<? extends GeneratedMessageV3>> payloadTypesMapByQueueName;
 
     /**
      * @param payloadTypesMapByQueueName
      */
-    public ProtobufMessageConverterByQueueTypeMapping(Map<String, Class<? extends GeneratedMessageV3>> payloadTypesMapByQueueName) {
+    public ProtobufMessageConverterByPayloadTypeMapping(Map<String, Class<? extends GeneratedMessageV3>> payloadTypesMapByQueueName) {
         this.payloadTypesMapByQueueName = payloadTypesMapByQueueName;
     }
 

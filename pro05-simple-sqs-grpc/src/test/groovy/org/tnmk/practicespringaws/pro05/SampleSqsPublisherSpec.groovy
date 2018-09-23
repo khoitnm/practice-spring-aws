@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Primary
 import org.springframework.test.annotation.DirtiesContext
 import org.tnmk.practicespringaws.pro05.aws.sqs.listener.story.SampleDataAwareness
 import org.tnmk.practicespringaws.pro05.aws.sqs.publisher.story.SampleSqsPublisher
+import org.tnmk.practicespringaws.pro05.datafactory.SampleComplicatedProtoFactory
 import spock.lang.Shared
 import spock.util.concurrent.PollingConditions
 
@@ -44,18 +45,7 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
     def 'Publish Sqs message successfully'() {
         given:
         String correlationId = UUID.randomUUID().toString();
-        ChildProto childProto = ChildProto.newBuilder()
-                .setId(System.nanoTime())
-                .setValue("Child " + System.nanoTime())
-                .build();
-
-        SampleComplicatedMessageProto sampleMessageProto = SampleComplicatedMessageProto.newBuilder()
-                .setValue("sample message value " + System.nanoTime())
-                .addAllChildren(constructChildren(20))
-                .putChildrenMaps("child 1", childProto)
-                .putChildrenMaps("child 2", childProto)
-                .putChildrenMaps("child 3", childProto)
-                .build();
+        SampleComplicatedMessageProto sampleMessageProto = SampleComplicatedProtoFactory.constructWithChildren(20);
 
         when:
         sampleSqsPublisher.publish(correlationId, sampleMessageProto)
@@ -68,15 +58,4 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
         }
     }
 
-    private List<ChildProto> constructChildren(int numOfChildren){
-        List<ChildProto> children = new ArrayList<>();
-        for (int i = 0; i < numOfChildren; i++) {
-            ChildProto childProto = ChildProto.newBuilder()
-                    .setId(i)
-                    .setValue("Child " + System.nanoTime())
-                    .build();
-            children.add(childProto);
-        }
-        return children;
-    }
 }
