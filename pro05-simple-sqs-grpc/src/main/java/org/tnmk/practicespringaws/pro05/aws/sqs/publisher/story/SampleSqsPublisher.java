@@ -3,8 +3,13 @@ package org.tnmk.practicespringaws.pro05.aws.sqs.publisher.story;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessagePostProcessor;
+import org.springframework.jms.support.JmsHeaders;
 import org.springframework.stereotype.Component;
 import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
 
 @Component
 public class SampleSqsPublisher {
@@ -18,7 +23,16 @@ public class SampleSqsPublisher {
         this.queue = queue;
     }
 
-    public void publish(SampleComplicatedMessageProto sampleMessageProto) {
-        defaultJmsTemplate.convertAndSend(queue, sampleMessageProto);
+    public void publish(String correlationId, SampleComplicatedMessageProto sampleMessageProto) {
+        defaultJmsTemplate.convertAndSend(queue, sampleMessageProto, new MessagePostProcessor(){
+            @Override
+            public Message postProcessMessage(Message message) throws JMSException {
+                // This method doesn't set correlationId into message attribute(header), I don't know why:
+                // message.setJMSCorrelationID(correlationId);
+                // So I have to use message.setStringProperty(...)
+                message.setStringProperty(JmsHeaders.CORRELATION_ID, correlationId);
+                return message;
+            }
+        });
     }
 }

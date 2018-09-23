@@ -9,14 +9,10 @@ import com.google.protobuf.GeneratedMessageV3;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
-import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto;
-import org.tnmk.practicespringaws.pro05.SampleMessageProto;
-import org.tnmk.practicespringaws.pro05.grpc.serialization.ProtobufMessageConverterByClassSimpleName;
-import org.tnmk.practicespringaws.pro05.grpc.serialization.ProtobufMessageConverterByQueueTypeMapping;
+import org.tnmk.practicespringaws.pro05.aws.sqs.common.messageconverter.grpc.ProtobufMessageConverterByQueueTypeMapping;
 
 import java.util.HashMap;
 import java.util.Map;

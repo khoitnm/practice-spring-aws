@@ -11,7 +11,7 @@ import java.lang.invoke.MethodHandles;
 public class SampleDataAwareness {
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    public void aware(SampleComplicatedMessageProto sampleMessageProto){
-        log.info("Processing {} in queue a", sampleMessageProto.getValue());
+    public void aware(String correlationId, SampleComplicatedMessageProto sampleMessageProto){
+        log.info("Processing {} in queue with correlationId {}", sampleMessageProto.getValue(), correlationId);
     }
 }

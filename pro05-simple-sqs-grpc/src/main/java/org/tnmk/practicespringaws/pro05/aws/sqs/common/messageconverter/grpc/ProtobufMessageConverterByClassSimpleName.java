@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro05.grpc.serialization;
+package org.tnmk.practicespringaws.pro05.aws.sqs.common.messageconverter.grpc;
 
 //import com.google.common.base.Preconditions;
 

@@ -43,6 +43,7 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
 
     def 'Publish Sqs message successfully'() {
         given:
+        String correlationId = UUID.randomUUID().toString();
         ChildProto childProto = ChildProto.newBuilder()
                 .setId(System.nanoTime())
                 .setValue("Child " + System.nanoTime())
@@ -57,13 +58,13 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
                 .build();
 
         when:
-        sampleSqsPublisher.publish(sampleMessageProto)
+        sampleSqsPublisher.publish(correlationId, sampleMessageProto)
 
         then:
         pollingConditions.eventually {
             // Just do this because I turn off the Listener
             Mockito.verify(mockSampleDataAwareness, Mockito.atLeast(1))
-                    .aware(Mockito.any())
+                    .aware(Mockito.any(), Mockito.any())
         }
     }
 

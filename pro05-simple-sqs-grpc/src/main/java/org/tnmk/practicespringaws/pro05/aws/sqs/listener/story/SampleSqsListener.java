@@ -2,9 +2,13 @@ package org.tnmk.practicespringaws.pro05.aws.sqs.listener.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.support.JmsHeaders;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto;
+
+import javax.jms.Message;
 
 @Component
 public class SampleSqsListener {
@@ -16,7 +20,7 @@ public class SampleSqsListener {
     }
 
     @JmsListener(destination = "${sample.sqs.queue}")
-    public void processMessageA(@Payload final SampleComplicatedMessageProto sampleData) {
-        sampleDataAwareness.aware(sampleData);
+    public void listenMessage(@Header(JmsHeaders.CORRELATION_ID) String correlationId, @Payload final SampleComplicatedMessageProto sampleData) {
+        sampleDataAwareness.aware(correlationId, sampleData);
     }
 }
