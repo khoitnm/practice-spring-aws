@@ -1,6 +1,6 @@
-package org.tnmk.practicespringaws.pro05.aws.sqs.common.messageconverter.grpc;
+package org.tnmk.practicespringaws.pro05.common.aws.sqs.share.messageconverter.grpc;
 
-//import com.google.common.base.Preconditions;
+//import com.google.share.base.Preconditions;
 
 import com.amazon.sqs.javamessaging.message.SQSBytesMessage;
 import com.google.protobuf.GeneratedMessageV3;

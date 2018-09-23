@@ -4,7 +4,7 @@ import com.amazon.sqs.javamessaging.SQSQueueDestination
 import com.google.protobuf.GeneratedMessageV3
 import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto
 import org.tnmk.practicespringaws.pro05.SampleMessageProto
-import org.tnmk.practicespringaws.pro05.aws.sqs.common.messageconverter.grpc.ProtobufMessageConverterByPayloadTypeMapping
+import org.tnmk.practicespringaws.pro05.common.aws.sqs.share.messageconverter.grpc.ProtobufMessageConverterByPayloadTypeMapping
 import org.tnmk.practicespringaws.pro05.datafactory.SampleComplicatedProtoFactory
 import spock.lang.Specification
 

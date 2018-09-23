@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.tnmk.practicespringaws.pro05.common.aws.sqs.share.AwsSqsCommonConfig\
+  ,org.tnmk.practicespringaws.pro05.common.aws.sqs.listener.AwsSqsListenerConfig\
+  ,org.tnmk.practicespringaws.pro05.common.aws.sqs.publisher.AwsSqsPublisherConfig

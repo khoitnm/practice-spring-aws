@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro05;
+package org.tnmk.practicespringaws.pro05.story;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

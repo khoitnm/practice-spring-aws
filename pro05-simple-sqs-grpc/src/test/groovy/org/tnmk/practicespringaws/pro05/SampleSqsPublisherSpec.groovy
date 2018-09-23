@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
 import org.springframework.test.annotation.DirtiesContext
-import org.tnmk.practicespringaws.pro05.aws.sqs.listener.story.SampleDataAwareness
-import org.tnmk.practicespringaws.pro05.aws.sqs.publisher.story.SampleSqsPublisher
+import org.tnmk.practicespringaws.pro05.story.listener.SampleDataAwareness
+import org.tnmk.practicespringaws.pro05.story.publisher.SampleSqsPublisher
 import org.tnmk.practicespringaws.pro05.datafactory.SampleComplicatedProtoFactory
 import spock.lang.Shared
 import spock.util.concurrent.PollingConditions

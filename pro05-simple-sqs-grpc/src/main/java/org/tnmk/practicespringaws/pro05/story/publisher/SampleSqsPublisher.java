@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro05.aws.sqs.publisher.story;
+package org.tnmk.practicespringaws.pro05.story.publisher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

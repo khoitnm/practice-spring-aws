@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro05.aws.sqs.common.messageconverter.grpc;
+package org.tnmk.practicespringaws.pro05.common.aws.sqs.share.messageconverter.grpc;
 
 import com.google.protobuf.GeneratedMessageV3;
 import com.google.protobuf.Parser;

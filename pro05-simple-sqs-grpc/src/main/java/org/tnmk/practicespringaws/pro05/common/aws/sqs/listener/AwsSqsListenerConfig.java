@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro05.aws.sqs.listener;
+package org.tnmk.practicespringaws.pro05.common.aws.sqs.listener;
 
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +17,7 @@ public class AwsSqsListenerConfig {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(sqsConnectionFactory);
         factory.setDestinationResolver(new DynamicDestinationResolver());
-        factory.setConcurrency("3-10");
+//        factory.setConcurrency("3-10");
         factory.setSessionAcknowledgeMode(Session.CLIENT_ACKNOWLEDGE);
         factory.setMessageConverter(messageConverter);
         return factory;
