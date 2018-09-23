@@ -3,7 +3,7 @@ package org.tnmk.practicespringaws.pro05.common.aws.sqs.share;
 import com.google.protobuf.GeneratedMessageV3;
 import org.springframework.util.ClassUtils;
 
-public class SqsPayloadTypesMapAsListProperties extends MapAsList<Class<? extends GeneratedMessageV3>> {
+public class MessagePayloadTypesMapAsListProperties extends MapAsList<Class<? extends GeneratedMessageV3>> {
 
     @Override
     protected Class<? extends GeneratedMessageV3> getValue(int valueIndex) {
