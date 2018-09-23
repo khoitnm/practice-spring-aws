@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro05
+package org.tnmk.practicespringaws.pro05.story
 
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
 import org.springframework.test.annotation.DirtiesContext
+import org.tnmk.practicespringaws.pro05.SampleComplicatedMessageProto
 import org.tnmk.practicespringaws.pro05.story.listener.SampleDataAwareness
 import org.tnmk.practicespringaws.pro05.story.publisher.SampleSqsPublisher
 import org.tnmk.practicespringaws.pro05.datafactory.SampleComplicatedProtoFactory

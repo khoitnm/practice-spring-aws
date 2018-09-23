@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro05
+package org.tnmk.practicespringaws.pro05.story
 
 import org.junit.Ignore
 import org.springframework.boot.test.context.SpringBootTest
