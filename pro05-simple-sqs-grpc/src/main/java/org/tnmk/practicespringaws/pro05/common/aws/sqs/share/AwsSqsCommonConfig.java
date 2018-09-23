@@ -48,20 +48,20 @@ public class AwsSqsCommonConfig {
 //        return new ProtobufMessageConverterByPayloadTypeMapping(payloadTypesMapByQueueName);
 //    }
     @Bean
-    public MessageConverter messageConverter(@Qualifier("payloadTypesMapByQueueName") MessagePayloadTypesMapAsListProperties payloadTypesMapAsListByQueueName) {
+    public MessageConverter messageConverter(@Qualifier("payloadTypesMapByQueueName") MessagePayloadTypesMapByQueueNameAsList payloadTypesMapAsListByQueueName) {
         return new ProtobufMessageConverterByPayloadTypeMapping(payloadTypesMapAsListByQueueName.getMap());
     }
 
 
 //    @Bean
-//    @ConfigurationProperties("aws.sqs.payload-types-map")
+//    @ConfigurationProperties("aws.sqs.payload-types-map-by-queue-name")
 //    public Map<String, Class<? extends GeneratedMessageV3>> payloadTypesMapByQueueName(){
 //        return new HashMap<>();
 //    }
 
     @Bean
-    @ConfigurationProperties("aws.sqs.payload-types-map")
-    public MessagePayloadTypesMapAsListProperties payloadTypesMapByQueueName(){
-        return new MessagePayloadTypesMapAsListProperties();
+    @ConfigurationProperties("aws.sqs.payload-types-map-by-queue-name")
+    public MessagePayloadTypesMapByQueueNameAsList payloadTypesMapByQueueName(){
+        return new MessagePayloadTypesMapByQueueNameAsList();
     }
 }
