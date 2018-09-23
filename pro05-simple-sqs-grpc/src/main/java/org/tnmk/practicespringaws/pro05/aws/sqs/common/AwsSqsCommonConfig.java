@@ -6,8 +6,10 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.google.protobuf.GeneratedMessageV3;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
@@ -43,6 +45,12 @@ public class AwsSqsCommonConfig {
         return connectionFactory;
     }
 
+    @Bean
+    @ConfigurationProperties("aws.sqs.payload-types-map")
+    public Map<String, Class<? extends GeneratedMessageV3>> payloadTypesMapByQueueName(){
+        return new HashMap<>();
+    }
+
     /**
      * Spring already has this bean by default. This code is just used for showing example how to customize the {@link MessageConverter}.
      *
@@ -50,9 +58,9 @@ public class AwsSqsCommonConfig {
      */
     @Bean
     public MessageConverter messageConverter() {
-        Map<String, Class<? extends GeneratedMessageV3>> payloadTypesMapByQueueName = new HashMap<>();
-        payloadTypesMapByQueueName.put("samplequeue_protobuf_complicated_message", SampleComplicatedMessageProto.class);
-        payloadTypesMapByQueueName.put("samplequeue_protobuf_simple_message", SampleMessageProto.class);
+        Map<String, Class<? extends GeneratedMessageV3>> payloadTypesMapByQueueName = payloadTypesMapByQueueName();
         return new ProtobufMessageConverterByQueueTypeMapping(payloadTypesMapByQueueName);
     }
+
+
 }
