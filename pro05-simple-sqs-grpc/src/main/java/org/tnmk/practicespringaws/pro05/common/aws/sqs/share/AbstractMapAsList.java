@@ -10,16 +10,16 @@ import java.util.Map;
  * For example:<br/>
  * You create a {@link AbstractMapAsList} with following elements:</br>
  * <code>
- * <li>key01</li>
+ * <li>"key01"</li>
  * <li>SampleObject01</li>
- * <li>key02</li>
+ * <li>"key02"</li>
  * <li>SampleObject02</li>
  * </code>
  * <br/>
  * Then the {@link AbstractMapAsList#getMap()} will return a {@link Map<String, E>} with following key-value pairs:
  * <code>
- * <li>key01: SampleObject01</li>
- * <li>key02: SampleOjbect02</li>
+ * <li>"key01": SampleObject01</li>
+ * <li>"key02": SampleOjbect02</li>
  * </code>
  * <br/>
  *
@@ -37,8 +37,6 @@ import java.util.Map;
  *     - ${VAR_VALUE_03}
  *     </pre>
  * </code>
- *
- *
  * @param <E>
  */
 public abstract class AbstractMapAsList<E> extends ArrayList<Object> {

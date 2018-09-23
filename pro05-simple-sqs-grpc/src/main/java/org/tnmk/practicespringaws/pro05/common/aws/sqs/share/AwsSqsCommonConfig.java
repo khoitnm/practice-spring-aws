@@ -5,6 +5,7 @@ import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
+import com.google.protobuf.GeneratedMessageV3;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +24,7 @@ import org.tnmk.practicespringaws.pro05.common.aws.sqs.share.messageconverter.gr
 public class AwsSqsCommonConfig {
 
 
-    public AwsSqsCommonConfig(){
+    public AwsSqsCommonConfig() {
     }
 
     @Bean
@@ -43,25 +44,27 @@ public class AwsSqsCommonConfig {
      *
      * @return
      */
+
+    @Bean
+    public MessageConverter messageConverter(@Qualifier("payloadTypesMapByQueueName") ClassesMapAsList<Class<? extends GeneratedMessageV3>> payloadTypesMapAsListByQueueName) {
+        return new ProtobufMessageConverterByPayloadTypeMapping(payloadTypesMapAsListByQueueName.getMap());
+    }
+
+    @Bean
+    @ConfigurationProperties("aws.sqs.payload-types-map-by-queue-name")
+    public ClassesMapAsList<Class<? extends GeneratedMessageV3>> payloadTypesMapByQueueName() {
+        return new ClassesMapAsList<>();
+    }
+
 //    @Bean
 //    public MessageConverter messageConverter(@Qualifier("payloadTypesMapByQueueName") Map<String, Class<? extends GeneratedMessageV3>> payloadTypesMapByQueueName) {
 //        return new ProtobufMessageConverterByPayloadTypeMapping(payloadTypesMapByQueueName);
 //    }
-    @Bean
-    public MessageConverter messageConverter(@Qualifier("payloadTypesMapByQueueName") MessagePayloadTypesMapByQueueNameAsList payloadTypesMapAsListByQueueName) {
-        return new ProtobufMessageConverterByPayloadTypeMapping(payloadTypesMapAsListByQueueName.getMap());
-    }
-
-
+//
 //    @Bean
 //    @ConfigurationProperties("aws.sqs.payload-types-map-by-queue-name")
 //    public Map<String, Class<? extends GeneratedMessageV3>> payloadTypesMapByQueueName(){
 //        return new HashMap<>();
 //    }
 
-    @Bean
-    @ConfigurationProperties("aws.sqs.payload-types-map-by-queue-name")
-    public MessagePayloadTypesMapByQueueNameAsList payloadTypesMapByQueueName(){
-        return new MessagePayloadTypesMapByQueueNameAsList();
-    }
 }
