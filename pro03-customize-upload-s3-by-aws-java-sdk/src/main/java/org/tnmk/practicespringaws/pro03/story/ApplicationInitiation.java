@@ -25,7 +25,7 @@ public class ApplicationInitiation {
 
     @EventListener(ApplicationReadyEvent.class)
     public void init() throws ResourceUploadException, ResourceReadException {
-        s3ResourceManagement.getBucketLocation(DESTINATION_BUCKET_NAME);
+//        s3ResourceManagement.getBucketLocation(DESTINATION_BUCKET_NAME);
         sampleUploadStory.uploadSampleFile();
     }
 }

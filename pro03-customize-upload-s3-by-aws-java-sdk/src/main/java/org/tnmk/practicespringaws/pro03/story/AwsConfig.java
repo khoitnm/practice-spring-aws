@@ -17,12 +17,20 @@ public class AwsConfig {
         return new AwsProperties();
     }
 
+//    @Bean
+//    public AmazonS3 amazonS3(AwsProperties awsProperties){
+//        return new AmazonS3SimpleBuilder().build(awsProperties);
+//    }
+
+    /**
+     * https://github.com/mapbox/rasterio/issues/1362
+     */
     @Bean
-    public AmazonS3 amazonS3(AwsProperties awsProperties){
+    public AmazonS3 anynymousAmazonS3(AwsProperties awsProperties){
+//        return AmazonS3ClientBuilder.standard().enableForceGlobalBucketAccess().withPayloadSigningEnabled(false).withRegion(awsProperties.getRegion()).build();
 //        return AmazonS3ClientBuilder.defaultClient();
         return AmazonS3ClientBuilder.standard().withRegion(awsProperties.getRegion()).build();
 //        return new AmazonS3SimpleBuilder().build(awsS3Properties());
     }
-
 
 }
