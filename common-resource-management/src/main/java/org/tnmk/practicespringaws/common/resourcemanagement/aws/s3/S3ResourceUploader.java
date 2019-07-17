@@ -4,16 +4,15 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.util.ObjectMetadataUtils;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.util.S3Utils;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.ResourceUploader;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceUploadException;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class S3ResourceUploader implements ResourceUploader {
     private final AmazonS3 amazonS3;
@@ -44,6 +43,5 @@ public class S3ResourceUploader implements ResourceUploader {
             throw new ResourceReadException("Cannot read the source data ", e, resource.getSourceLocation());
         }
     }
-
 
 }
