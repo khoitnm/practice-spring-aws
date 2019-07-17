@@ -18,9 +18,10 @@ public class AwsConfig {
     }
 
     @Bean
-    public AmazonS3 amazonS3(){
-//        return new AmazonS3ClientBuilder.defaultClient();
-        return new AmazonS3SimpleBuilder().build(awsS3Properties());
+    public AmazonS3 amazonS3(AwsProperties awsProperties){
+//        return AmazonS3ClientBuilder.defaultClient();
+        return AmazonS3ClientBuilder.standard().withRegion(awsProperties.getRegion()).build();
+//        return new AmazonS3SimpleBuilder().build(awsS3Properties());
     }
 
 

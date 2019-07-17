@@ -25,8 +25,8 @@ public class SampleUploadStory {
     @Autowired
     private S3ResourceUploader s3ResourceUploader;
 
-    @EventListener(ApplicationReadyEvent.class)
     public void uploadSampleFile() throws ResourceReadException, ResourceUploadException {
+
         byte[] bytes = loadFileFromClasspath(SAMPLE_SOURCE_FILE_LOCATION);
         Resource resource = new Resource();
         resource.setBytes(bytes);
