@@ -5,13 +5,8 @@
 -->
 
 <configuration>
-
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} %-5level %logger{36} - %msg%n
-            </Pattern>
-        </encoder>
-    </appender>
+    <!-- This including write the log to console with more colorful! -->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
     <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -34,13 +29,8 @@
 
     </appender>
 
-    <logger name="org.hibernate.type" level="INFO" />
-    <logger name="org.hibernate" level="INFO" />
-    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="INFO" />
-
     <root level="INFO">
         <appender-ref ref="FILE" />
-        <appender-ref ref="STDOUT" />
     </root>
 
 </configuration>

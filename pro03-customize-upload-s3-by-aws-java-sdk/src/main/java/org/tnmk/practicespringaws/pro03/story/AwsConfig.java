@@ -1,6 +1,7 @@
 package org.tnmk.practicespringaws.pro03.story;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ public class AwsConfig {
 
     @Bean
     public AmazonS3 amazonS3(){
+//        return new AmazonS3ClientBuilder.defaultClient();
         return new AmazonS3SimpleBuilder().build(awsS3Properties());
     }
 

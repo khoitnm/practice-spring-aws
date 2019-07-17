@@ -1,9 +1,12 @@
 package org.tnmk.practicespringaws.pro03.story;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Service;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.S3ResourceUploader;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
@@ -12,10 +15,11 @@ import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.R
 import java.io.IOException;
 import java.io.InputStream;
 
-//@Service
+@Service
 public class SampleUploadStory {
+    private static final Logger logger = LoggerFactory.getLogger(SampleUploadStory.class);
     private static final String SAMPLE_SOURCE_FILE_LOCATION = "/application-fullmylocal.yml";
-    private static final String SAMPLE_DESTINATION_FILE_LOCATION = "s3://practicekevin/application-fullmylocal.yml";
+    private static final String SAMPLE_DESTINATION_FILE_LOCATION = "s3://kevin-test-public-bucket/application-fullmylocal.yml";
 
 
     @Autowired
@@ -30,6 +34,7 @@ public class SampleUploadStory {
         resource.setContentEncoding("UTF-8");
         resource.getUserMetadata().put("custom-metadata-01-key", "custom-metadata-01-value");
         s3ResourceUploader.upload(resource, SAMPLE_DESTINATION_FILE_LOCATION);
+        logger.info("Uploaded file " + resource.getSourceLocation() + " to " + SAMPLE_DESTINATION_FILE_LOCATION);
     }
 
     private byte[] loadFileFromClasspath(String classpathFileLocation) throws ResourceReadException {
