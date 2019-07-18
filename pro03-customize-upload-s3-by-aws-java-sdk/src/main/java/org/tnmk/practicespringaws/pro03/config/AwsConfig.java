@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro03.story;
+package org.tnmk.practicespringaws.pro03.config;
 
 import com.amazonaws.services.s3.AmazonS3;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,6 +18,7 @@ public class AwsConfig {
 
     @Bean
     public AmazonS3 amazonS3(AwsProperties awsProperties){
-        return new AmazonS3SimpleBuilder().build(awsProperties);
+        return new AmazonS3SimpleBuilder().buildAnonymous(awsProperties.getRegion());
+//        return new AmazonS3SimpleBuilder().build(awsProperties);
     }
 }

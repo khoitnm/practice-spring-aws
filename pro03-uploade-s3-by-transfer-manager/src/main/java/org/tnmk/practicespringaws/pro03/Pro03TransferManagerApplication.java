@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class Pro03Application {
+public class Pro03TransferManagerApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(Pro03Application.class, args);
+    SpringApplication.run(Pro03TransferManagerApplication.class, args);
   }
 }

@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro03.story;
+package org.tnmk.practicespringaws.pro03;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -6,6 +6,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceReadException;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceUploadException;
+import org.tnmk.practicespringaws.pro03.story.SampleUploadStory;
 
 @Service
 public class ApplicationInitiation {
