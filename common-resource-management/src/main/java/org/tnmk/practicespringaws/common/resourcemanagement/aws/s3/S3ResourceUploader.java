@@ -4,6 +4,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectResult;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.R
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.ResourceUploadException;
 
 public class S3ResourceUploader implements ResourceUploader {
+
     private final AmazonS3 amazonS3;
 
     public S3ResourceUploader(AmazonS3 amazonS3) {
@@ -34,7 +36,7 @@ public class S3ResourceUploader implements ResourceUploader {
 
         try (InputStream inputStream = new ByteArrayInputStream(resource.getBytes())) {
             ObjectMetadata objectMetadata = ObjectMetadataUtils.getObjectMetadata(resource);
-            amazonS3.putObject(bucketName, keyName, inputStream, objectMetadata);
+            PutObjectResult result = amazonS3.putObject(bucketName, keyName, inputStream, objectMetadata);
         } catch (AmazonServiceException ex) {
             throw new ResourceUploadException("Cannot upload resource. Error at the server side.", ex, resource.getSourceLocation(), targetLocation);
         } catch (SdkClientException ex) {

@@ -11,10 +11,10 @@ import org.tnmk.practicespringaws.common.resourcemanagement.resource.exception.R
 import org.tnmk.practicespringaws.common.utils.FileUtils;
 
 @Service
-public class SampleUploadStory {
-    private static final Logger logger = LoggerFactory.getLogger(SampleUploadStory.class);
-    public static final String SAMPLE_SOURCE_FILE_LOCATION = "/application-fullmylocal.yml";
-    private static final String SAMPLE_DESTINATION_FILE_LOCATION = "s3://kevin-test-public-bucket/application-fullmylocal.yml";
+public class S3ResourceUploaderStory {
+    private static final Logger logger = LoggerFactory.getLogger(S3ResourceUploaderStory.class);
+    public static final String SAMPLE_SOURCE_FILE_LOCATION = "/application.yml";
+    private static final String SAMPLE_DESTINATION_FILE_LOCATION = "s3://kevin-test-public-bucket/application.yml";
 
     @Autowired
     private S3ResourceUploader s3ResourceUploader;
