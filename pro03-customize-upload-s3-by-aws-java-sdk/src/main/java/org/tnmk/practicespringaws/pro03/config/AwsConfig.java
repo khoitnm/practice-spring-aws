@@ -17,8 +17,26 @@ public class AwsConfig {
     }
 
     @Bean
-    public AmazonS3 amazonS3(AwsProperties awsProperties){
+    public AmazonS3 amazonS3(AwsProperties awsProperties) {
+        /**
+         * There are some cases you can upload file to S3 bucket without AWS credentials.
+         * - The s3 bucket is public for writing
+         * - Or your machine in it's whitelist setting
+         */
         return new AmazonS3SimpleBuilder().buildAnonymous(awsProperties.getRegion());
+        /**
+         * If your application run on the EC2 which connect directly with S3 bucket, you can use this:
+         */
+//        return AmazonS3ClientBuilder.standard()
+//                .withCredentials(InstanceProfileCredentialsProvider.getInstance())
+//                .build();
+        /**
+         * If your application connect via IAMRole, use this:
+         */
+//        return AmazonS3ClientBuilder.defaultClient();
+        /**
+         * Otherwise, you need to provide full AWS Access Key and SecretKey which can be generated from an IAMUser
+         */
 //        return new AmazonS3SimpleBuilder().build(awsProperties);
     }
 }

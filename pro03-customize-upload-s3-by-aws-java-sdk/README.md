@@ -1,3 +1,5 @@
-pro01-simple-download-s3-by-resourceloader provides a very simple way to load resource from s3.
-But when loading the resource, it doesn't provides any metadata.
-So to get both binary data and metadata in the same request, we have to write our own code by using aws-java-sdk.
+This sample code also shows how to connect S3 via many ways.
+View more in AwsConfig:
+- Full credentials chain: https://docs.aws.amazon.com/en_us/sdk-for-java/v1/developer-guide/java-dg-roles.html
+- https://docs.aws.amazon.com/en_us/general/latest/gr/aws-sec-cred-types.html
+- With VPC: https://aws.amazon.com/vi/premiumsupport/knowledge-center/s3-private-connection-no-authentication/
