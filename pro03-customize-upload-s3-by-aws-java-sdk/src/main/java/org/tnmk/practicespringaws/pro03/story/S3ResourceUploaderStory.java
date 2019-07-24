@@ -14,7 +14,7 @@ import org.tnmk.practicespringaws.common.utils.FileUtils;
 public class S3ResourceUploaderStory {
     private static final Logger logger = LoggerFactory.getLogger(S3ResourceUploaderStory.class);
     public static final String SAMPLE_SOURCE_FILE_LOCATION = "/application.yml";
-    private static final String SAMPLE_DESTINATION_FILE_LOCATION = "s3://kevin-test-public-bucket/application.yml";
+    private static final String SAMPLE_DESTINATION_FILE_LOCATION = "s3://tuna-sbx-aep-media-input-bucket/application_2.yml";
 
     @Autowired
     private S3ResourceUploader s3ResourceUploader;

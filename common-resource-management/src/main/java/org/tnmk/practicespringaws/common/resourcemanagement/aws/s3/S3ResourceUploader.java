@@ -3,11 +3,12 @@ package org.tnmk.practicespringaws.common.resourcemanagement.aws.s3;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.services.s3.model.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.util.ObjectMetadataUtils;
 import org.tnmk.practicespringaws.common.resourcemanagement.aws.s3.util.S3Utils;
 import org.tnmk.practicespringaws.common.resourcemanagement.resource.Resource;
@@ -37,6 +38,14 @@ public class S3ResourceUploader implements ResourceUploader {
         try (InputStream inputStream = new ByteArrayInputStream(resource.getBytes())) {
             ObjectMetadata objectMetadata = ObjectMetadataUtils.getObjectMetadata(resource);
             PutObjectResult result = amazonS3.putObject(bucketName, keyName, inputStream, objectMetadata);
+            /**
+             * If you upload the S3 file from another AWS Account which is different from the S3 Owner Account, the S3 Object (S3 File)'s Owner will be different from S3 Bucket's Owner.
+             * And that S3 Bucket Owner may not be able to access your S3 File.
+             * So, you need to give S3 Bucket Owner Full Control of your S3 File.
+             *
+             * If you upload S3 from the same Account, then you don't need this ACL.
+             */
+            amazonS3.setObjectAcl(bucketName, keyName, CannedAccessControlList.BucketOwnerFullControl);
         } catch (AmazonServiceException ex) {
             throw new ResourceUploadException("Cannot upload resource. Error at the server side." + ex.getErrorMessage(), ex, resource.getSourceLocation(), targetLocation);
         } catch (SdkClientException ex) {
@@ -45,5 +54,4 @@ public class S3ResourceUploader implements ResourceUploader {
             throw new ResourceReadException("Cannot read the source data " + e.getMessage(), e, resource.getSourceLocation());
         }
     }
-
 }
