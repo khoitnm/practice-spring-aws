@@ -1,8 +1,9 @@
-package org.tnmk.practicespringaws.pro04
+package org.tnmk.practicespringaws.pro04.syndicatorclient
 
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.DirtiesContext
+import org.tnmk.practicespringaws.pro04.BaseComponentSpecification
 import org.tnmk.practicespringaws.pro04.aws.sqs.publisher.story.SampleSqsPublisher
 
 @DirtiesContext

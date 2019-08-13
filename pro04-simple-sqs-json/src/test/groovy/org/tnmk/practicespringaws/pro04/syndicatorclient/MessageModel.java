@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04;
+package org.tnmk.practicespringaws.pro04.syndicatorclient;
 
 public class MessageModel {
     private Integer oidPropertyClient; // PID == oidPropertyClient
