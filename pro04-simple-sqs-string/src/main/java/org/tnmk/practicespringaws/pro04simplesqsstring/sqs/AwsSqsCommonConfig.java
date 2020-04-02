@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04simplesqsjson.sqs.common;
+package org.tnmk.practicespringaws.pro04simplesqsstring.sqs;
 
 import com.amazon.sqs.javamessaging.ProviderConfiguration;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;

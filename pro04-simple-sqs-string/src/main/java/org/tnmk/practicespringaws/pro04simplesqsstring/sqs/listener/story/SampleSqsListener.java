@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04simplesqsjson.sqs.listener.story;
+package org.tnmk.practicespringaws.pro04simplesqsstring.sqs.listener.story;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

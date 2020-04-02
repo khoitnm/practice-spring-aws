@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04simplesqsjson.sqs.publisher;
+package org.tnmk.practicespringaws.pro04simplesqsstring.sqs.publisher;
 
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import org.springframework.context.annotation.Bean;
