@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
 import org.springframework.test.annotation.DirtiesContext
-import org.tnmk.practicespringaws.pro04.aws.sqs.listener.story.SampleDataAwareness
-import org.tnmk.practicespringaws.pro04.aws.sqs.model.Child
-import org.tnmk.practicespringaws.pro04.aws.sqs.model.SampleData
-import org.tnmk.practicespringaws.pro04.aws.sqs.publisher.story.SampleSqsPublisher
+import org.tnmk.practicespringaws.pro04simplesqsjson.sqs.listener.story.SampleDataAwareness
+import org.tnmk.practicespringaws.pro04simplesqsjson.sqs.model.Child
+import org.tnmk.practicespringaws.pro04simplesqsjson.sqs.model.SampleData
+import org.tnmk.practicespringaws.pro04simplesqsjson.sqs.publisher.story.SampleSqsPublisher
 import spock.lang.Shared
 import spock.util.concurrent.PollingConditions
 
