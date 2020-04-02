@@ -1,5 +1,5 @@
-aws.region: {region}
-aws.accessKey: {accessKey}
-aws.secretKey: {secretKey}
+aws.region: ${region}
+aws.accessKey: ${accessKey}
+aws.secretKey: ${secretKey}
 
 sample.sqs.queue: samplequeue_json

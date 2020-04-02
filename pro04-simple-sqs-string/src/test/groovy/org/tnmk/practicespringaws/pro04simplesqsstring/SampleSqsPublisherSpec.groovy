@@ -1,7 +1,7 @@
 package org.tnmk.practicespringaws.pro04simplesqsstring
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.tnmk.practicespringaws.pro04simplesqsjson.sqs.publisher.story.SampleSqsPublisher
+import org.tnmk.practicespringaws.pro04simplesqsstring.sqs.publisher.story.SampleSqsPublisher
 
 class SampleSqsPublisherSpec extends BaseComponentSpecification {
 
@@ -14,7 +14,7 @@ class SampleSqsPublisherSpec extends BaseComponentSpecification {
      */
     def 'Publish Sqs message successfully'() {
         given:
-        String testMessage = "Somestirng" + System.nanoTime();
+        String testMessage = "Some string" + System.nanoTime();
 
         when:
         sampleSqsPublisher.publish(testMessage)

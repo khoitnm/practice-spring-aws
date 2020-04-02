@@ -1,9 +1,9 @@
-package org.tnmk.practicespringaws.pro04simplesqsstring.sqs;
+package org.tnmk.practicespringaws.pro04simplesqsstring.sqs.common;
 
 import com.amazon.sqs.javamessaging.ProviderConfiguration;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,8 @@ public class AwsSqsCommonConfig {
         AmazonSQSClientBuilder amazonSQSClientBuilder = AmazonSQSClientBuilder.standard()
             .withRegion(awsProperties.getRegion())
             .withCredentials(new AWSStaticCredentialsProvider(
-                new BasicAWSCredentials(awsProperties.getAccessKey(), awsProperties.getSecretKey())
+                new BasicSessionCredentials(awsProperties.getAccessKey(), awsProperties.getSecretKey(), awsProperties.getSessionToken())
+//                new BasicAWSCredentials(awsProperties.getAccessKey(), awsProperties.getSecretKey())
             ));
 
         SQSConnectionFactory connectionFactory = new SQSConnectionFactory(new ProviderConfiguration(), amazonSQSClientBuilder);

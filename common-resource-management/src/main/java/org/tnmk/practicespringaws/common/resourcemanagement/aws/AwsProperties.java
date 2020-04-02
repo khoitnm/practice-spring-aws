@@ -4,6 +4,7 @@ public class AwsProperties {
     private String region;
     private String accessKey;
     private String secretKey;
+    private String sessionToken;
 
     public String getRegion() {
         return region;
@@ -27,5 +28,13 @@ public class AwsProperties {
 
     public void setSecretKey(String secretKey) {
         this.secretKey = secretKey;
+    }
+
+    public String getSessionToken() {
+        return sessionToken;
+    }
+
+    public void setSessionToken(String sessionToken) {
+        this.sessionToken = sessionToken;
     }
 }
