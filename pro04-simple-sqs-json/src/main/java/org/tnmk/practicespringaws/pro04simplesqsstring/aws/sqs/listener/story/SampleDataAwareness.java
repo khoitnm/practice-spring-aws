@@ -1,9 +1,9 @@
-package org.tnmk.practicespringaws.pro04.aws.sqs.listener.story;
+package org.tnmk.practicespringaws.pro04simplesqsstring.aws.sqs.listener.story;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.tnmk.practicespringaws.pro04.aws.sqs.model.SampleData;
+import org.tnmk.practicespringaws.pro04simplesqsstring.aws.sqs.model.SampleData;
 
 import java.lang.invoke.MethodHandles;
 

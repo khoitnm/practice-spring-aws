@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04.aws.sqs.model;
+package org.tnmk.practicespringaws.pro04simplesqsstring.aws.sqs.model;
 
 import java.util.List;
 import java.util.Map;
