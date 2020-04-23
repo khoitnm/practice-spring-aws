@@ -3,15 +3,12 @@ package org.tnmk.practicespringaws.pro04.aws.sqs.common;
 import com.amazon.sqs.javamessaging.ProviderConfiguration;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.internal.StaticCredentialsProvider;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
+import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -19,7 +16,7 @@ import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
-import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Copied from here:
@@ -30,7 +27,26 @@ import org.tnmk.practicespringaws.common.resourcemanagement.aws.AwsProperties;
 public class AwsSqsCommonConfig {
 
 
-    public AwsSqsCommonConfig(){
+    @Value("${aws_region}")
+    private String region;
+
+    @Value("${aws_access_key_id}")
+    private String accessKeyId;
+
+    @Value("${aws_secret_access_key}")
+    private String secretAccessKey;
+
+    @Value("${aws_session_token}")
+    private String sessionToken;
+
+    @Bean
+    public AwsProperties awsProperties() {
+        AwsProperties awsProperties = new AwsProperties();
+        awsProperties.setRegion(region);
+        awsProperties.setAccessKeyId(accessKeyId);
+        awsProperties.setSecretAccessKey(secretAccessKey);
+        awsProperties.setSessionToken(sessionToken);
+        return awsProperties;
     }
 
     @Bean
@@ -38,10 +54,13 @@ public class AwsSqsCommonConfig {
         AmazonSQSClientBuilder amazonSQSClientBuilder = AmazonSQSClientBuilder.standard()
             .withRegion(awsProperties.getRegion())
             .withCredentials(new AWSStaticCredentialsProvider(
-                new BasicAWSCredentials(awsProperties.getAccessKey(), awsProperties.getSecretKey())
+                new BasicSessionCredentials(awsProperties.getAccessKeyId(), awsProperties.getSecretAccessKey(), awsProperties.getSessionToken())
+//                new BasicAWSCredentials(awsProperties.getAccessKey(), awsProperties.getSecretKey())
             ));
 
-        SQSConnectionFactory connectionFactory = new SQSConnectionFactory(new ProviderConfiguration(), amazonSQSClientBuilder);
+        ProviderConfiguration providerConfiguration = new ProviderConfiguration();
+//        providerConfiguration.setNumberOfMessagesToPrefetch(15);//Still don't see much affect to the performance.
+        SQSConnectionFactory connectionFactory = new SQSConnectionFactory(providerConfiguration, amazonSQSClientBuilder);
         return connectionFactory;
     }
 

@@ -1,5 +1,6 @@
-aws.region: {region}
-aws.accessKey: {accessKey}
-aws.secretKey: {secretKey}
+aws_region: us-east-2
+aws_access_key_id: XXX
+aws_secret_access_key: YYY
+aws_session_token: ZZZ
 
 sample.sqs.queue: samplequeue_json

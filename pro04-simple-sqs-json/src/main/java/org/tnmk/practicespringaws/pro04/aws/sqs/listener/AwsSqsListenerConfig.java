@@ -17,7 +17,8 @@ public class AwsSqsListenerConfig {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(sqsConnectionFactory);
         factory.setDestinationResolver(new DynamicDestinationResolver());
-        factory.setConcurrency("3-10");
+//        factory.setConcurrency("3-10");
+        factory.setConcurrency("5");
         factory.setSessionAcknowledgeMode(Session.CLIENT_ACKNOWLEDGE);
         factory.setMessageConverter(messageConverter);
         return factory;

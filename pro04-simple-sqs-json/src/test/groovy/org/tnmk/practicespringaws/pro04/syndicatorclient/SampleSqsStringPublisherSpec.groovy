@@ -4,6 +4,7 @@ package org.tnmk.practicespringaws.pro04.syndicatorclient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.DirtiesContext
 import org.tnmk.practicespringaws.pro04.BaseComponentSpecification
+import org.tnmk.practicespringaws.pro04.aws.sqs.model.SampleData
 import org.tnmk.practicespringaws.pro04.aws.sqs.publisher.story.SampleSqsPublisher
 
 @DirtiesContext
@@ -14,14 +15,15 @@ class SampleSqsStringPublisherSpec extends BaseComponentSpecification {
 
     def 'Publish Sqs message successfully'() {
         given:
-        MessageModel messageModel = new MessageModel();
-        messageModel.setMessageId(""+System.nanoTime())
-        messageModel.setOidIdsClient(140618);
-        messageModel.setOidPropertyClient(1289178)
-//        String sampleData = "{\"oidPropertyClient\":1289178,\"oidIdsClient\":140618,\"messageId\":\"22\"}";
+        List<SampleData> messages = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            SampleData sampleData = new SampleData();
+            sampleData.setValue("" + i);
+            messages.add(sampleData);
+        }
 
         when:
-        sampleSqsPublisher.publish(messageModel)
+        sampleSqsPublisher.publishList(messages);
 
         then:
         noExceptionThrown()

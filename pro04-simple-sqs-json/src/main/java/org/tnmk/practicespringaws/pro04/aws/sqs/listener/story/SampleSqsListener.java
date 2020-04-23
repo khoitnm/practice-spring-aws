@@ -18,5 +18,6 @@ public class SampleSqsListener {
     @JmsListener(destination = "${sample.sqs.queue}")
     public void processMessageA(@Payload final SampleData sampleData) {
         sampleDataAwareness.aware(sampleData);
+
     }
 }

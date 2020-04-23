@@ -1,4 +1,5 @@
 *.log
+*.log.zip
 **/.gradle
 **/gradle/
 **/gradlew
@@ -32,3 +33,5 @@ nbdist/
 
 **/application-fullmylocal.yml
 **/application-componenttest.yml
+**/application-personallocal.yml
+**/application-personallocal.properties

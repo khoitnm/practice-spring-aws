@@ -7,7 +7,7 @@ import org.tnmk.practicespringaws.pro04.Pro04Application
 import spock.lang.Specification
 
 @Ignore
-@ActiveProfiles("componenttest")
+@ActiveProfiles("personallocal")
 @SpringBootTest(classes = Pro04Application.class)
 abstract class BaseComponentSpecification extends Specification {
 

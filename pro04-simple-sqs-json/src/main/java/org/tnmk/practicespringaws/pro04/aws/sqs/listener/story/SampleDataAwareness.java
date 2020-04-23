@@ -12,6 +12,14 @@ public class SampleDataAwareness {
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public void aware(SampleData sampleData){
-        log.info("Processing {} in queue a", sampleData.getValue());
+        log.info("Start processing {} in the queue...", sampleData.getValue());
+        runSomethingSlow();
+        log.info("Finish processing {} in the queue!!!", sampleData.getValue());
+    }
+
+    private void runSomethingSlow(){
+        for (int i = 0; i < Integer.MAX_VALUE/300; i++) {
+            int[] arr = new int[1000];
+        }
     }
 }
