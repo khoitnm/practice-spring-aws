@@ -63,6 +63,7 @@ public class SampleSqsPublisher {
                 .collect(Collectors.toList());
 
             SendMessageBatchRequest sendMessageBatchRequest = new SendMessageBatchRequest(queueUrl, messageEntries);
+            //NOTE: This is much, much faster than using JmsTemplate.convertAndSend(message)
             amazonSQS.sendMessageBatch(sendMessageBatchRequest);
             messageIndex += objectBatch.size();
             log.info("Finished sending messages [{}], batch[{}]: {} ", messageIndex, batchIndex, objectBatch);
@@ -85,18 +86,17 @@ public class SampleSqsPublisher {
         MessageAttributeValue attJmsSqsMessageType = new MessageAttributeValue()
             .withDataType("String")
             .withStringValue("text");
+        attributes.put("JMS_SQSMessageType", attJmsSqsMessageType);
+
         MessageAttributeValue attDocumentType = new MessageAttributeValue()
             .withDataType("String")
             .withStringValue(object != null ? object.getClass().getCanonicalName() : null);
-        attributes.put("JMS_SQSMessageType", attJmsSqsMessageType);
         attributes.put("documentType", attDocumentType);
 
-//        attributes.put("JMS_SQSMessageType", messageAttributeValue);
         return attributes;
     }
 
     private String toMessageBody(Object object) {
-//        return String.valueOf(object) + System.nanoTime();
         try {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
