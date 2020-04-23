@@ -15,6 +15,7 @@
         <module>pro03-customize-upload-s3-by-aws-java-sdk</module>
         <module>pro03-uploade-s3-by-transfer-manager</module>
         <module>pro04-simple-sqs-json</module>
+        <module>pro04-sqs-batch-publisher</module>
         <module>pro05-simple-sqs-grpc</module>
     </modules>
 

@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04.syndicatorclient
+package org.tnmk.practicespringaws.pro04sqsbatchpubisher.syndicatorclient
 
 
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,7 +16,7 @@ class SampleSqsStringPublisherSpec extends BaseComponentSpecification {
     def 'Publish Sqs message successfully'() {
         given:
         List<SampleData> messages = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             SampleData sampleData = new SampleData();
             sampleData.setValue("" + i);
             messages.add(sampleData);

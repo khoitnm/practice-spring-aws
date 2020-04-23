@@ -1,4 +1,4 @@
-package org.tnmk.practicespringaws.pro04
+package org.tnmk.practicespringaws.pro04sqsbatchpubisher
 
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
