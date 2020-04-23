@@ -1,6 +1,7 @@
 package org.tnmk.practicespringaws.pro04sqsbatchpubisher.aws.sqs.publisher.story;
 
 import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.model.MessageAttributeValue;
 import com.amazonaws.services.sqs.model.SendMessageBatchRequest;
 import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
@@ -14,7 +15,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.lang.invoke.MethodHandles;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -37,6 +40,7 @@ public class SampleSqsPublisher {
         this.amazonSQS = amazonSQS;
         this.queue = queue;
         this.queueUrl = amazonSQS.getQueueUrl(queue).getQueueUrl();
+        log.info("QueueURL: {}", queueUrl);
         this.objectMapper = objectMapper;
     }
 
@@ -44,7 +48,8 @@ public class SampleSqsPublisher {
         log.info("Send message: " + object);
         SendMessageRequest sendMessageRequest = new SendMessageRequest()
             .withQueueUrl(queueUrl)
-            .withMessageBody(toMessageBody(object));
+            .withMessageBody(toMessageBody(object))
+            .withMessageAttributes(jmsMessageAttribute());
         amazonSQS.sendMessage(sendMessageRequest);
     }
 
@@ -69,9 +74,17 @@ public class SampleSqsPublisher {
         SendMessageBatchRequestEntry entry = new SendMessageBatchRequestEntry()
             .withId(UUID.randomUUID().toString())
             .withMessageBody(toMessageBody(object))
+            .withMessageAttributes(jmsMessageAttribute())
             //.withMessageGroupId()//Messages that belong to the same message group are always processed one by one, in a strict order relative to the message group (however, messages that belong to different message groups might be processed out of order).
             ;
         return entry;
+    }
+
+    private Map<String, MessageAttributeValue> jmsMessageAttribute() {
+        Map<String, MessageAttributeValue> attributes = new HashMap<>();
+        MessageAttributeValue messageAttributeValue = new MessageAttributeValue().withStringValue("text");
+        attributes.put("JMS_SQSMessageType", messageAttributeValue);
+        return attributes;
     }
 
     private String toMessageBody(Object object) {

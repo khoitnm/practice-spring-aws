@@ -3,9 +3,9 @@ package org.tnmk.practicespringaws.pro04sqsbatchpubisher.syndicatorclient
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.DirtiesContext
-import org.tnmk.practicespringaws.pro04.BaseComponentSpecification
-import org.tnmk.practicespringaws.pro04.aws.sqs.model.SampleData
-import org.tnmk.practicespringaws.pro04.aws.sqs.publisher.story.SampleSqsPublisher
+import org.tnmk.practicespringaws.pro04sqsbatchpubisher.BaseComponentSpecification
+import org.tnmk.practicespringaws.pro04sqsbatchpubisher.aws.sqs.model.SampleData
+import org.tnmk.practicespringaws.pro04sqsbatchpubisher.aws.sqs.publisher.story.SampleSqsPublisher
 
 @DirtiesContext
 class SampleSqsStringPublisherSpec extends BaseComponentSpecification {

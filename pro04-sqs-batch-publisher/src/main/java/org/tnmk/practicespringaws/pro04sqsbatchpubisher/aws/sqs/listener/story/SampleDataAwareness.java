@@ -13,7 +13,7 @@ public class SampleDataAwareness {
 
     public void aware(SampleData sampleData){
         log.info("Start processing {} in the queue...", sampleData.getValue());
-        runSomethingSlow();
+//        runSomethingSlow();
         log.info("Finish processing {} in the queue!!!", sampleData.getValue());
     }
 

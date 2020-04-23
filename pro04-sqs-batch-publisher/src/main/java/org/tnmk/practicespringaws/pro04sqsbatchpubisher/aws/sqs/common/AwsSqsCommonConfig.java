@@ -71,7 +71,7 @@ public class AwsSqsCommonConfig {
     @Bean
     public SQSConnectionFactory sqsConnectionFactory(AmazonSQSClientBuilder amazonSQSClientBuilder) {
         ProviderConfiguration providerConfiguration = new ProviderConfiguration();
-        providerConfiguration.setNumberOfMessagesToPrefetch(30);//Still don't see much affect to the performance.
+//        providerConfiguration.setNumberOfMessagesToPrefetch(30);//Still don't see much affect to the performance.
         SQSConnectionFactory connectionFactory = new SQSConnectionFactory(providerConfiguration, amazonSQSClientBuilder);
         return connectionFactory;
     }
@@ -86,7 +86,6 @@ public class AwsSqsCommonConfig {
         MappingJackson2MessageConverter mappingJackson2MessageConverter = new MappingJackson2MessageConverter();
         mappingJackson2MessageConverter.setObjectMapper(objectMapper);
         mappingJackson2MessageConverter.setTargetType(MessageType.TEXT);
-//        mappingJackson2MessageConverter.setTypeIdPropertyName("ID");
         mappingJackson2MessageConverter.setTypeIdPropertyName("documentType");
         return mappingJackson2MessageConverter;
     }
