@@ -16,7 +16,7 @@ class SampleSqsStringPublisherSpec extends BaseComponentSpecification {
     def 'Publish Sqs message successfully'() {
         given:
         List<SampleData> messages = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5; i++) {
             SampleData sampleData = new SampleData();
             sampleData.setValue("" + i);
             messages.add(sampleData);

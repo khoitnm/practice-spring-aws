@@ -2,6 +2,7 @@ package org.tnmk.practicespringaws.pro04sqsbatchpubisher.aws.sqs.common;
 
 import com.amazon.sqs.javamessaging.ProviderConfiguration;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.services.sqs.AmazonSQS;

@@ -49,7 +49,7 @@ public class SampleSqsPublisher {
         SendMessageRequest sendMessageRequest = new SendMessageRequest()
             .withQueueUrl(queueUrl)
             .withMessageBody(toMessageBody(object))
-            .withMessageAttributes(jmsMessageAttribute());
+            .withMessageAttributes(jmsMessageAttribute(object));
         amazonSQS.sendMessage(sendMessageRequest);
     }
 
@@ -74,20 +74,29 @@ public class SampleSqsPublisher {
         SendMessageBatchRequestEntry entry = new SendMessageBatchRequestEntry()
             .withId(UUID.randomUUID().toString())
             .withMessageBody(toMessageBody(object))
-            .withMessageAttributes(jmsMessageAttribute())
+            .withMessageAttributes(jmsMessageAttribute(object))
             //.withMessageGroupId()//Messages that belong to the same message group are always processed one by one, in a strict order relative to the message group (however, messages that belong to different message groups might be processed out of order).
             ;
         return entry;
     }
 
-    private Map<String, MessageAttributeValue> jmsMessageAttribute() {
+    private Map<String, MessageAttributeValue> jmsMessageAttribute(Object object) {
         Map<String, MessageAttributeValue> attributes = new HashMap<>();
-        MessageAttributeValue messageAttributeValue = new MessageAttributeValue().withStringValue("text");
-        attributes.put("JMS_SQSMessageType", messageAttributeValue);
+        MessageAttributeValue attJmsSqsMessageType = new MessageAttributeValue()
+            .withDataType("String")
+            .withStringValue("text");
+        MessageAttributeValue attDocumentType = new MessageAttributeValue()
+            .withDataType("String")
+            .withStringValue(object != null ? object.getClass().getCanonicalName() : null);
+        attributes.put("JMS_SQSMessageType", attJmsSqsMessageType);
+        attributes.put("documentType", attDocumentType);
+
+//        attributes.put("JMS_SQSMessageType", messageAttributeValue);
         return attributes;
     }
 
     private String toMessageBody(Object object) {
+//        return String.valueOf(object) + System.nanoTime();
         try {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
