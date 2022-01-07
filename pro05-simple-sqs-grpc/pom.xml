@@ -20,7 +20,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>8</java.version>
         <spock.version>1.1-groovy-2.4</spock.version>
-        <google.protobuf.version>3.5.1</google.protobuf.version>
+        <google.protobuf.version>3.16.1</google.protobuf.version>
     </properties>
 
     <dependencies>
